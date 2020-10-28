@@ -45,6 +45,8 @@ int main()
     //al_create_mouse_cursor("IMG/cursor.bmp", 0, 0);
     carga_juego();
 
+    
+
     ALLEGRO_COLOR rojito = al_map_rgb(255, 0, 0);
     ALLEGRO_COLOR vacio = al_map_rgb(0, 0, 0);
 
