@@ -10,7 +10,7 @@ using namespace std;
 #include "Globales.h"
 #include "User.h"
 #include "ingame.h"
-
+/* Este comentario es pitoputopato*/
 
 void inicia_allegro()
 {
