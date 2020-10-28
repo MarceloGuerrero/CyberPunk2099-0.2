@@ -4,6 +4,7 @@
 //#include "allegro5/allegro.h"
 using namespace std;
 
+
 ///declaramos los triggers
 ALLEGRO_BITMAP* fondo;
 ALLEGRO_BITMAP* choque;
@@ -11,14 +12,12 @@ ALLEGRO_BITMAP* alto;
 
 ALLEGRO_COLOR rojito = al_map_rgb(255, 0, 0);
 
-
-
-player jugador;
-
-
-
 bool desplaza;
-
+/*
+void carga_juego();
+void actualiza_juego(player jugador);
+void pinta_juego(player jugador);
+*/
 // carga todo lo necesario antes de empezar el juego
 void carga_juego()
 {
@@ -31,7 +30,7 @@ void carga_juego()
 
 
 // actualiza el estado del juego
-void actualiza_juego()
+void actualiza_juego(player jugador)
 {
     int ax, ay;
     ax = jugador.getx();
@@ -65,13 +64,12 @@ void actualiza_juego()
 }
 
 // Se encarga de pintar todo sobre el buffer
-void pinta_juego()
+void pinta_juego(player jugador, int x, int y)
 {
     al_clear_to_color(al_map_rgb(0, 0, 0));
     al_draw_bitmap(fondo, 0, 0, NULL);
-    jugador.pinta();
+    jugador.pinta(x,y);
     al_flip_display();
-    
 }
 
 
