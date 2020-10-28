@@ -91,27 +91,27 @@ int main()
 
         }
         else if (events.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
-            if (events.mouse.button & 1) mouseI = 1;
-            else if (events.mouse.button & 2)mouseD = 1;
+            if (events.mouse.button & 1);
+            else if (events.mouse.button & 2);
         }
 
-        actualiza_juego();
-        al_clear_to_color(vacio);
-        pinta_juego();
+        
         //pintar_pantalla();
+        
 
 
-
-        /*
+        
         if (x > 970 && x < 1120 &&
             y>360 && y < 420) {
             al_clear_to_color(vacio);
             al_draw_bitmap(menu3, 0, 0, NULL);
             al_flip_display();
-            if (events.mouse.button & 1 == 1) {
-
-                a = true;   //funcion jugar a desarrolar
-                done = false;
+            if (events.mouse.button & 1) {
+                while (!a) {
+                    actualiza_juego();
+                    al_clear_to_color(vacio);
+                    pinta_juego();
+                }
             }
         }
 
@@ -120,10 +120,10 @@ int main()
             al_clear_to_color(al_map_rgb(0, 0, 0));
             al_draw_bitmap(menu4, 0, 0, NULL);
             al_flip_display();
-            if (events.mouse.button & 1 == 1) {
+            if (events.mouse.button & 1) {
 
                 a = true;   //funcion jugar a desarrolar
-                done = false;
+                done = true;
             }
         }
         
@@ -133,10 +133,10 @@ int main()
             al_clear_to_color(al_map_rgb(0, 0, 0));
             al_draw_bitmap(menu2, 0, 0, NULL);
             al_flip_display();
-            if (events.mouse.button & 1 == 1) {
+            if (events.mouse.button & 1) {
 
                 a = true;   //funcion jugar a desarrolar
-                done = false;
+                done = true;
             }
         }
     
@@ -146,10 +146,10 @@ int main()
         al_clear_to_color(al_map_rgb(0, 0, 0));
         al_draw_bitmap(menu5, 0, 0, NULL);
         al_flip_display();
-        if (events.mouse.button & 1 == 1) {
+        if (events.mouse.button & 1) {
 
             a = true;   //funcion jugar a desarrolar
-            done = false;
+            done = true;
         }
         }
         else if (x > 970 && x < 1105 &&
@@ -157,10 +157,10 @@ int main()
         al_clear_to_color(al_map_rgb(0, 0, 0));
         al_draw_bitmap(menu6, 0, 0, NULL);
         al_flip_display();
-        if (events.mouse.button & 1 == 1) {
+        if (events.mouse.button & 1) {
 
             a = true;   //funcion jugar a desarrolar
-            done = false;
+            done = true;
         }
         }
         else {
@@ -172,15 +172,15 @@ int main()
             //funcion jugar a desarrolar
             //done = false;
                 
-           actualiza_juego();
+          /* actualiza_juego();
 
                      
     
 
                  al_clear_to_color(vacio);
                  pinta_juego();
-                 pintar_pantalla();
-       */
+                 pintar_pantalla();*/
+       
         
     }
     ///al_destroy_event_queue(event_queue);
