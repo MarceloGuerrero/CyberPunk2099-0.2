@@ -19,7 +19,7 @@ void inicia_allegro()
     al_install_mouse();
     al_install_keyboard();
     ALLEGRO_DISPLAY *ventanita = al_create_display(PANTALLA_ANCHO, PANTALLA_ALTO);
-    
+   
     al_set_target_backbuffer(ventanita);
 
     /*while(true)al_flip_display();*/
@@ -39,10 +39,14 @@ void inicia_allegro()
 // programa principal
 int main()
 {
+
     ///ALLEGRO_DISPLAY;
     inicia_allegro();
     //al_create_mouse_cursor("IMG/cursor.bmp", 0, 0);
     carga_juego();
+
+    ALLEGRO_COLOR rojito = al_map_rgb(255, 0, 0);
+    ALLEGRO_COLOR vacio = al_map_rgb(0, 0, 0);
 
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
 
@@ -91,12 +95,17 @@ int main()
             else if (events.mouse.button & 2)mouseD = 1;
         }
 
+        actualiza_juego();
+        al_clear_to_color(vacio);
+        pinta_juego();
+        //pintar_pantalla();
 
 
 
+        /*
         if (x > 970 && x < 1120 &&
             y>360 && y < 420) {
-            al_clear_to_color(al_map_rgb(0, 0, 0));
+            al_clear_to_color(vacio);
             al_draw_bitmap(menu3, 0, 0, NULL);
             al_flip_display();
             if (events.mouse.button & 1 == 1) {
@@ -154,46 +163,24 @@ int main()
             done = false;
         }
         }
-        else al_clear_to_color(al_map_rgb(0, 0, 0));
-        al_draw_bitmap(menu1, 0, 0, NULL);
-        al_flip_display();
+        else {
+            al_clear_to_color(al_map_rgb(0, 0, 0));
+            al_draw_bitmap(menu1, 0, 0, NULL);
+            al_flip_display();
+        }
 
             //funcion jugar a desarrolar
             //done = false;
-        
+                
+           actualiza_juego();
 
+                     
+    
 
-
-
-        /* while (!salir)
-         {
-             if (contador_tiempo_juego)
-             {
-                 while (contador_tiempo_juego)
-                 {
-                     actualiza_juego();
-
-                     contador_tiempo_juego--;
-                 }
-
-                 //al_clear_to_color(rojito);
-
-                 //pinta_juego();
-
+                 al_clear_to_color(vacio);
+                 pinta_juego();
                  pintar_pantalla();
-
-             }
-             else {
-
-                 // rest(1);
-             }
-             // tecla de salida
-             //if (key[KEY_ESC]) salir = true;
-         }*/
-
-         ///            al_rest(10);
-                     //al_destroy_display(ventanita);
-        
+       */
         
     }
     ///al_destroy_event_queue(event_queue);

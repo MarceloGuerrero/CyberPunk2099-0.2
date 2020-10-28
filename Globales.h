@@ -29,10 +29,11 @@ const int desplazamiento = 120 / FRAME_RATE;
 //const int desplazamiento=4;
 
 // Copiar el buffer a la pantalla del juego (screen)
+/*
 void pintar_pantalla()
 {
-    al_draw_bitmap_region(buffer, 0, 0, 0, 0, PANTALLA_ANCHO, PANTALLA_ALTO, ALLEGRO_FLIP_HORIZONTAL);
-}
+    al_draw_bitmap(fondo, 0, 0, NULL);
+}*/
 
 // Función para controlar la velocidad
 volatile unsigned int tiempo_total = 0;

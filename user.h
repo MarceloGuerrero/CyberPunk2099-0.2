@@ -37,10 +37,10 @@ void player::inicia()
     x = 620;
     y = 362;
 }
-void player::pinta()
-{
-    //TODO: me falta hacer todo para que ataque
+void player::pinta(){
 /*
+    //TODO: me falta hacer todo para que ataque
+
     if ( ataca > 1 && ( direccion == 1 || direccion == 3 ) )
     {
            masked_blit(p1, buffer, 0, direccion*96, x-32, y-32, 96,96);
@@ -53,9 +53,8 @@ void player::pinta()
            masked_blit(p1, buffer, 0, direccion*96, x-32, y-32, 96,96);
     }
     if ( ataca > 1 || ataca < 0) ataca++;
-    //hasta aca
-    */
-    al_draw_bitmap_region(p1,animacion * 32, direccion * 48, x, y, 32, 48,ALLEGRO_FLIP_HORIZONTAL );
+    
+    al_draw_bitmap_region(p1,animacion * 32, direccion * 48, x, y, 32, 48,ALLEGRO_FLIP_HORIZONTAL );*/
 }
 
 /*void player::teclado(){

@@ -65,12 +65,14 @@ void actualiza_juego()
 }
 
 // Se encarga de pintar todo sobre el buffer
-/*void pinta_juego()
+void pinta_juego()
 {
-    al_draw_bitmap_region(fondo, 0, 0, 0, 0, 1280, 720, ALLEGRO_FLIP_HORIZONTAL);
+    al_clear_to_color(al_map_rgb(0, 0, 0));
+    al_draw_bitmap(fondo, 0, 0, NULL);
     jugador.pinta();
-    al_draw_bitmap_region(alto, 0, 0, 1280, 720, 1280, 720, ALLEGRO_FLIP_HORIZONTAL);
-}*
+    al_flip_display();
+    
+}
 
 
 /*class BMPS :BITMAP {
