@@ -1,7 +1,7 @@
 #pragma once
 #ifndef USER_H_INCLUDED
 #define USER_H_INCLUDED
-#include "allegro5/allegro.h"
+//#include "allegro5/allegro.h"
 
 
 
@@ -19,7 +19,7 @@ public:
     int animacion;
     void inicia();
     void pinta();
-    void teclado();
+    //void teclado();
     int getx() { return x; };
     int gety() { return y; };
     void posiciona(int _x, int _y);

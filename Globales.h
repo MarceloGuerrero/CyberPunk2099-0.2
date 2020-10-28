@@ -1,7 +1,7 @@
 #pragma once
 #ifndef GLOBALES_H_INCLUDED
 #define GLOBALES_H_INCLUDED
-#include "allegro5/allegro.h"
+//#include "allegro5/allegro.h"
 
 // Ancho y alto de la pantalla
 const int PANTALLA_ANCHO = 1280;
@@ -18,7 +18,7 @@ ALLEGRO_BITMAP* menu;
 bool salir;
 
 // Variable usada para la velocidad
-volatile unsigned int contador_tiempo_juego = 0;
+//volatile unsigned int contador_tiempo_juego = 0;
 
 // Indica los FPS
 const int FRAME_RATE = 30;
@@ -35,14 +35,14 @@ void pintar_pantalla()
 }
 
 // Función para controlar la velocidad
-/*volatile unsigned int tiempo_total = 0;*/
+volatile unsigned int tiempo_total = 0;
 
 /*void inc_contador_tiempo_juego()
 {
     contador_tiempo_juego++;
     tiempo_total++;
 }
-END_OF_FUNCTION(inc_contador_tiempo_juego)*/
+END_OF_FUNCTION(inc_contador_tiempo_juego);*/
 
 
 
