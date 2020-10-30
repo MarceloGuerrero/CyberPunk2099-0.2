@@ -1,5 +1,6 @@
 #include "inGame.h"
 #include <iostream>
+#include <stdlib.h>
 
 
 using namespace std;
@@ -92,9 +93,9 @@ void inGame::pinta_npc(NPC guardia, int x, int y) {
     // al_flip_display();
 }
 
-void inGame::pinta_arma(Armas arma1, int x, int y) {
+void inGame::pinta_arma(Armas arma1, int x, int y, int _x, int _y) {
 
-    arma1.pinta(x,y);
+    arma1.pinta(x,y, _x, _y);
 
 }
 
@@ -114,6 +115,9 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
     jugador.inicia();
     int x = jugador.getx();
     int y = jugador.getx();
+    arma1.setx(x);
+    arma1.sety(y);
+    
     arma1.inicia(x, y);
     guardia.inicia();
 
@@ -121,7 +125,7 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
     bool a = false;
     bool draw = true, active = false;
     enum Direction { DOWN, LEFT, RIGHT, UP };
-    float moveSpeed = 5;
+    float moveSpeed = 3;
     int sourceX = 32, sourceY = 0, dir = sourceY;
 
     while (!a) {
@@ -131,7 +135,7 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
         pinta_npc(guardia, 0, 0);
         //al_clear_to_color(vacio);
         pinta_jugador(jugador, sourceX, dir);
-        pinta_arma(arma1, sourceX, dir);
+        pinta_arma(arma1, sourceX, dir, x,y);
 
 
         int x, y;
@@ -152,7 +156,11 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
             }
             else if (events.type == ALLEGRO_EVENT_TIMER) {
                 active = true;
-                if (al_key_down(&keyState, ALLEGRO_KEY_S)) {
+
+                if (al_key_down(&keyState, ALLEGRO_KEY_SPACE)) {
+                    moveSpeed = 5;
+                }
+                else if (al_key_down(&keyState, ALLEGRO_KEY_S)) {
                     y += moveSpeed;
                     dir = DOWN;
                 }
@@ -182,11 +190,12 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
             }
             if (active) {
                 sourceX += al_get_bitmap_width(jugador.getBitmap()) / 3;
+                sourceX += al_get_bitmap_width(arma1.getBitmap()) / 3;
             }
             else {
                 sourceX = 32;
             }
-            if (sourceX >= al_get_bitmap_width(jugador.getBitmap())) {
+            if (sourceX >= al_get_bitmap_width(jugador.getBitmap()) && sourceX >= al_get_bitmap_width(arma1.getBitmap())) {
                 sourceX = 0;
             }
             sourceY = dir;
@@ -197,7 +206,7 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
                 jugador.sety(y);
                 pinta_fondo();
                 pinta_jugador(jugador, sourceX, sourceY);
-                pinta_arma(arma1, sourceX, sourceY);
+                pinta_arma(arma1, sourceX, sourceY, x ,y);
                 //al_flip_display();
                 pinta_npc(guardia, 0, 0);
                 al_flip_display();

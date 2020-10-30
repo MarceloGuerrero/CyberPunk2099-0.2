@@ -18,7 +18,7 @@ void jugador::inicia()
 void jugador::pinta(int sx, int sy) {
 
     al_draw_bitmap_region(p1, sx, sy * al_get_bitmap_height(p1) / 4, al_get_bitmap_width(p1) / 3, al_get_bitmap_height(p1) / 4, x, y, NULL);
-
+   
 
     /*
         //TODO: me falta hacer todo para que ataque
