@@ -11,8 +11,7 @@ const int menuP_ALTO = 469;
 
 // En este BITMAP dibujaremos todo
 ALLEGRO_BITMAP* buffer;
-ALLEGRO_BITMAP* loading, * menu1, * menu2, * menu3, * menu4, * menu5, * menu6, * cursor;
-ALLEGRO_BITMAP* menu;
+
 
 // controla el bucle principal
 bool salir;

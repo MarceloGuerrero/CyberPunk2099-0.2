@@ -1,4 +1,7 @@
 #include "jugador.h"
+#include <iostream>
+
+using namespace std;
 void jugador::inicia()
 {
     p1 = al_load_bitmap("IMG/allen2.bmp");
@@ -7,6 +10,10 @@ void jugador::inicia()
     //animacion = 0;
     x = 620;
     y = 362;
+
+    
+
+
 }
 void jugador::pinta(int sx, int sy) {
 

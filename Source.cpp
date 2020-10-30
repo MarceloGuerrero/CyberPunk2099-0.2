@@ -10,59 +10,34 @@ using namespace std;
 #include "Globales.h"
 #include "Jugador.h"
 #include "inGame.h"
-#include "src/tmx.h"
 #include "NPC.h"
 /* Este comentario es pitoputopato*/
 
 
 
-void inicia_allegro()
-{
+void inicia_allegro(){
     al_init();
     al_init_image_addon();
     al_init_primitives_addon();
     al_install_mouse();
     al_install_keyboard();
     ALLEGRO_DISPLAY *ventanita = al_create_display(PANTALLA_ANCHO, PANTALLA_ALTO);
-   
     al_set_target_backbuffer(ventanita);
-
-    /*while(true)al_flip_display();*/
-
-    ///set_color_depth(32);
-    ///set_gfx_mode(GFX_AUTODETECT_WINDOWED, PANTALLA_ANCHO, PANTALLA_ALTO, 0, 0);
-
-    //buffer = al_create_bitmap(PANTALLA_ANCHO, PANTALLA_ALTO);
-
-    //FRAME_RATE = 60;//(contador_tiempo_juego);
-    //LOCK_FUNCTION(inc_contador_tiempo_juego);
-
-    // Iniciamos el limitador de FPS
-    //install_int_ex(inc_contador_tiempo_juego, BPS_TO_TIMER(FRAME_RATE));
 }
 
 // programa principal
-int main()
-{
+int main(){
 
     ///ALLEGRO_DISPLAY;
     inicia_allegro();
-    //al_create_mouse_cursor("IMG/cursor.bmp", 0, 0);
-    carga_juego();
-    //enum Direction { DOWN, LEFT, RIGHT, UP };
     const float FPS = 60;
-    
-    jugador jugador;
-    NPC guardia;
-    
-    jugador.inicia();
-    guardia.inicia();
 
-    ALLEGRO_BITMAP* p1 = jugador.getBitmap();
-    ALLEGRO_BITMAP* npc = guardia.getBitmap();
-    ALLEGRO_COLOR rojito = al_map_rgb(255, 0, 0);
-    ALLEGRO_COLOR vacio = al_map_rgb(0, 0, 0);
+    inGame eljuego;
+    
+    
 
+
+    ///Creamos el objeto de eventos
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
 
     //registramos los eventos de la wea
@@ -70,39 +45,32 @@ int main()
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_mouse_event_source());
     al_register_event_source(event_queue, al_get_keyboard_event_source());
-    ALLEGRO_KEYBOARD_STATE keyState;
-    int sourceX = 32, sourceY = 0, dir = sourceY;
+    
 
-    enum Direction { DOWN, LEFT, RIGHT, UP };
-   
-    bool draw =true ,active=false;
-    
-    
-    float moveSpeed = 5;
-    
-    salir = false;
-    
-    float x = 10, y = 10;
-    bool a = false;
-    bool done = false;
-    loading = al_load_bitmap("IMG/intro.bmp");
-    menu1 = al_load_bitmap("IMG/menu1.bmp");
-    menu2 = al_load_bitmap("IMG/menu2.bmp");
-    menu3 = al_load_bitmap("IMG/menu3.bmp");
-    menu4 = al_load_bitmap("IMG/menu4.bmp");
-    menu5 = al_load_bitmap("IMG/menu5.bmp");
-    menu6 = al_load_bitmap("IMG/menu6.bmp");
-    cursor = al_load_bitmap("IMG/cursor.bmp");
 
-    int state = NULL;
+    
 
-    int mouseI = 0;
-    int mouseD = 0;
+    /*jugador jugador;
+    NPC guardia;
+    Armas arma1;
+    inGame eljuego;
+
+    jugador.inicia(arma1);
+    guardia.inicia();
+
+    eljuego.carga_juego(jugador, guardia, arma1);*/
+
     
     al_start_timer(timer);
+
+    int x =0 , y = 0 ;
+
+    bool done = false;
     while (!done) {
         ALLEGRO_EVENT events;
+        ALLEGRO_KEYBOARD_STATE keyState;
         al_wait_for_event(event_queue, &events);
+        al_get_keyboard_state(&keyState);
 
         if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             done = true;
@@ -116,167 +84,11 @@ int main()
             if (events.mouse.button & 1);
             else if (events.mouse.button & 2);
         }
-
-        
-        //pintar_pantalla();
-        
-
-
-        
-        if (x > 970 && x < 1120 &&
-            y>360 && y < 420) {
-            al_clear_to_color(vacio);
-            al_draw_bitmap(menu3, 0, 0, NULL);
-            al_flip_display();
-            if (events.mouse.button & 1) {
-                while (!a) {
-                    actualiza_juego(jugador);
-                    al_clear_to_color(vacio);
-                    pinta_fondo();
-                    pinta_npc(guardia, 0, 0);
-                    al_clear_to_color(vacio);
-                    pinta_jugador(jugador, sourceX, dir);
-                    
-
-                    
-                    done = false;
-                    //jugador.teclado(jugador);
-                    while (!done) 
-                    {
-                       
-                        al_wait_for_event(event_queue, &events);
-                        al_get_keyboard_state(&keyState);
-                        if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-                            done = true;
-                        }
-                        else if (events.type == ALLEGRO_EVENT_TIMER){
-                            active = true;
-                            if (al_key_down(&keyState, ALLEGRO_KEY_S)){
-                                y += moveSpeed;
-                                dir = DOWN;
-                            }
-                            
-                            else if (al_key_down(&keyState, ALLEGRO_KEY_W)) {
-                                y -= moveSpeed;
-                                dir = UP;
-                            }
-                            else if (al_key_down(&keyState, ALLEGRO_KEY_D)) {
-                                x += moveSpeed;
-                                dir = RIGHT;
-                            }
-                            else if (al_key_down(&keyState, ALLEGRO_KEY_A)) {
-                                x -= moveSpeed;
-                                dir = LEFT;
-                            }
-
-                            else if (al_key_down(&keyState, ALLEGRO_KEY_ESCAPE)) 
-                            {
-                                done = true;
-                            }
-                            else {
-                                active = false;
-                            }
-                            
-
-                        }
-                        if (active) {
-                            sourceX += al_get_bitmap_width(p1) / 3;
-                        }
-                        else {
-                            sourceX = 32;
-                        }
-                            if (sourceX >= al_get_bitmap_width(p1)) {
-                            sourceX = 0;
-                        }
-                            sourceY = dir;
-                            draw = true;
-
-                        if (draw) {
-                            jugador.setx(x);
-                            jugador.sety(y);
-                            pinta_fondo();
-                            pinta_jugador(jugador, sourceX, sourceY);
-                            //al_flip_display();
-                            pinta_npc(guardia, 0, 0);
-                            al_flip_display();
-                        }
-
-                    }
-                
-                    
-                }
-            }
-        }
-
-        else if (x > 970 && x < 1260 &&
-            y>460 && y < 510) {
-            al_clear_to_color(al_map_rgb(0, 0, 0));
-            al_draw_bitmap(menu4, 0, 0, NULL);
-            al_flip_display();
-            if (events.mouse.button & 1) {
-
-                a = true;   //funcion jugar a desarrolar
-                done = true;
-            }
-        }
-        
-
-        else if (x > 388 && x < 921 &&
-            y>408 && y < 590) {
-            al_clear_to_color(al_map_rgb(0, 0, 0));
-            al_draw_bitmap(menu2, 0, 0, NULL);
-            al_flip_display();
-            if (events.mouse.button & 1) {
-
-                a = true;   //funcion jugar a desarrolar
-                done = true;
-            }
-        }
-    
-
-        else if (x > 970 && x < 1262 &&
-        y>531 && y < 594) {
-        al_clear_to_color(al_map_rgb(0, 0, 0));
-        al_draw_bitmap(menu5, 0, 0, NULL);
-        al_flip_display();
-        if (events.mouse.button & 1) {
-
-            a = true;   //funcion jugar a desarrolar
-            done = true;
-        }
-        }
-        else if (x > 970 && x < 1105 &&
-        y>624 && y < 688) {
-        al_clear_to_color(al_map_rgb(0, 0, 0));
-        al_draw_bitmap(menu6, 0, 0, NULL);
-        al_flip_display();
-        if (events.mouse.button & 1) {
-
-            a = true;   //funcion jugar a desarrolar
-            done = true;
-        }
-        }
-        else {
-            al_clear_to_color(al_map_rgb(0, 0, 0));
-            al_draw_bitmap(menu1, 0, 0, NULL);
-            al_flip_display();
-        }
-
-            //funcion jugar a desarrolar
-            //done = false;
-                
-          /* actualiza_juego();
-
-                     
-    
-
-                 al_clear_to_color(vacio);
-                 pinta_juego();
-                 pintar_pantalla();*/
-       
-        
+        //comienza el jueguin
+        eljuego.menu_principal(keyState, event_queue, events, done, x, y);
     }
-    ///al_destroy_event_queue(event_queue);
+    al_destroy_event_queue(event_queue);
+    //eljuego.~inGame;
 
     return 0;
 }

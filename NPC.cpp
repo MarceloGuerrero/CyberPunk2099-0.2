@@ -1,4 +1,7 @@
 #include "NPC.h"
+#include <iostream>
+
+using namespace std;
 
 void NPC::posiciona(int _x, int _y) {
     x = _x;

@@ -161,16 +161,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Armas.cpp" />
     <ClCompile Include="inGame.cpp" />
     <ClCompile Include="jugador.cpp" />
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Armas.h" />
     <ClInclude Include="Globales.h" />
     <ClInclude Include="jugador.h" />
     <ClInclude Include="NPC.h" />
     <ClInclude Include="inGame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

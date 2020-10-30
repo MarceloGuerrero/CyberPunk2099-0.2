@@ -7,6 +7,7 @@ private:
     int x, y;
     int ataca;
     int vida;
+    int vidaAct;
     int def;
 public:
     void inicia();
