@@ -51,4 +51,7 @@ END_OF_FUNCTION(inc_contador_tiempo_juego);*/
 
 
 
+
+
+
 #endif // GLOBALES_H_INCLUDED

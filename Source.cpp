@@ -8,9 +8,13 @@ using namespace std;
 #include "allegro5/allegro_ttf.h"
 #include "windows.h"
 #include "Globales.h"
-#include "user.h"
+#include "Jugador.h"
 #include "inGame.h"
+#include "src/tmx.h"
+#include "NPC.h"
 /* Este comentario es pitoputopato*/
+
+
 
 void inicia_allegro()
 {
@@ -48,9 +52,14 @@ int main()
     //enum Direction { DOWN, LEFT, RIGHT, UP };
     const float FPS = 60;
     
-    player jugador;
+    jugador jugador;
+    NPC guardia;
+    
     jugador.inicia();
+    guardia.inicia();
+
     ALLEGRO_BITMAP* p1 = jugador.getBitmap();
+    ALLEGRO_BITMAP* npc = guardia.getBitmap();
     ALLEGRO_COLOR rojito = al_map_rgb(255, 0, 0);
     ALLEGRO_COLOR vacio = al_map_rgb(0, 0, 0);
 
@@ -123,7 +132,13 @@ int main()
                 while (!a) {
                     actualiza_juego(jugador);
                     al_clear_to_color(vacio);
-                    pinta_juego(jugador, sourceX, dir);
+                    pinta_fondo();
+                    pinta_npc(guardia, 0, 0);
+                    al_clear_to_color(vacio);
+                    pinta_jugador(jugador, sourceX, dir);
+                    
+
+                    
                     done = false;
                     //jugador.teclado(jugador);
                     while (!done) 
@@ -179,7 +194,10 @@ int main()
                         if (draw) {
                             jugador.setx(x);
                             jugador.sety(y);
-                            pinta_juego(jugador, sourceX, sourceY);
+                            pinta_fondo();
+                            pinta_jugador(jugador, sourceX, sourceY);
+                            //al_flip_display();
+                            pinta_npc(guardia, 0, 0);
                             al_flip_display();
                         }
 

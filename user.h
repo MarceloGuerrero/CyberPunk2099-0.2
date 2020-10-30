@@ -14,8 +14,6 @@ private:
     int animacion;*/
     int ataca;
 public:
-    int direccion;
-    int animacion;
     void inicia();
     void pinta(int, int);
     //void teclado(player jugador);

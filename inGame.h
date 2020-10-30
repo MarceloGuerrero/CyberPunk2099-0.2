@@ -1,8 +1,8 @@
 #pragma once
-#ifndef INGAME_H_INCLUDED
-#define INGAME_H_INCLUDED
+#include "NPC.h"
+/*#ifndef INGAME_H_INCLUDED
+#define INGAME_H_INCLUDED*/
 //#include "allegro5/allegro.h"
-using namespace std;
 
 
 ///declaramos los triggers
@@ -11,6 +11,11 @@ ALLEGRO_BITMAP* choque;
 ALLEGRO_BITMAP* alto;
 
 ALLEGRO_COLOR rojito = al_map_rgb(255, 0, 0);
+
+
+void pinta_fondo();
+void pinta_jugador(jugador jugador, int x, int y);
+void pinta_npc(NPC guardia, int x, int y);
 
 bool desplaza;
 /*
@@ -30,7 +35,7 @@ void carga_juego()
 
 
 // actualiza el estado del juego
-void actualiza_juego(player jugador)
+void actualiza_juego(jugador jugador)
 {
     int ax, ay;
     ax = jugador.getx();
@@ -64,13 +69,32 @@ void actualiza_juego(player jugador)
 }
 
 // Se encarga de pintar todo sobre el buffer
-void pinta_juego(player jugador, int x, int y)
+void pinta_jugador(jugador jugador, int x, int y)
+{
+    //al_clear_to_color(al_map_rgb(0, 0, 0));
+    //al_draw_bitmap(fondo, 0, 0, NULL);
+    jugador.pinta(x,y);
+    //al_flip_display();
+}
+
+void pinta_fondo()
 {
     al_clear_to_color(al_map_rgb(0, 0, 0));
     al_draw_bitmap(fondo, 0, 0, NULL);
-    jugador.pinta(x,y);
     al_flip_display();
 }
+
+void pinta_npc(NPC guardia, int x, int y) {
+
+    //al_clear_to_color(al_map_rgb(0, 0, 0));
+    //al_draw_bitmap(fondo, 0, 0, NULL);
+    guardia.pinta2(x, y);
+   // al_flip_display();
+}
+
+class inGame
+{
+};
 
 
 /*class BMPS :BITMAP {
@@ -99,4 +123,4 @@ void loading_screen() {
     }
 }*/
 
-#endif // INGAME_H_INCLUDED
+/*#endif // INGAME_H_INCLUDED;*/
