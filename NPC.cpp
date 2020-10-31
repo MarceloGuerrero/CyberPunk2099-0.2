@@ -19,8 +19,6 @@ void NPC::inicia()
 }
 
 void NPC::pinta2(int sx, int sy) {
-
     al_convert_mask_to_alpha(npc, al_map_rgb(0, 0, 0));
     al_draw_bitmap_region(npc, sx, sy * 46, 30, 46, x, y, NULL);
-
 }

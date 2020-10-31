@@ -210,7 +210,6 @@ void inGame::GAME(){
     }
     al_destroy_event_queue(event_queue);
     this->~inGame();
-
 }
 
 void inGame::menu_principal(ALLEGRO_KEYBOARD_STATE keyState,  ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, bool &done, int x, int y) {
