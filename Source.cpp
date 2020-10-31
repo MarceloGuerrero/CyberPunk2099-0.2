@@ -8,9 +8,7 @@ using namespace std;
 #include "allegro5/allegro_ttf.h"
 #include "windows.h"
 #include "Globales.h"
-#include "Jugador.h"
 #include "inGame.h"
-#include "NPC.h"
 /* Este comentario es pitoputopato*/
 
 
@@ -34,9 +32,6 @@ int main(){
 
     inGame eljuego;
     
-    
-
-
     ///Creamos el objeto de eventos
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
 
@@ -45,11 +40,7 @@ int main(){
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_mouse_event_source());
     al_register_event_source(event_queue, al_get_keyboard_event_source());
-    
-
-
-    
-
+   
     /*jugador jugador;
     NPC guardia;
     Armas arma1;
@@ -86,9 +77,10 @@ int main(){
         }
         //comienza el jueguin
         eljuego.menu_principal(keyState, event_queue, events, done, x, y);
+        eljuego.juego_inicia(keyState, event_queue, events);
     }
     al_destroy_event_queue(event_queue);
-    //eljuego.~inGame;
+    eljuego.~inGame();
 
     return 0;
 }

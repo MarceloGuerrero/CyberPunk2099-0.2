@@ -20,9 +20,6 @@ bool salir;
 //volatile unsigned int contador_tiempo_juego = 0;
 
 // Indica los FPS
-const int FRAME_RATE = 30;
-
-const int desplazamiento = 120 / FRAME_RATE;
 
 // es el espacio en pixel que recorre el jugador al andar
 //const int desplazamiento=4;

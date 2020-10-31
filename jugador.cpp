@@ -10,14 +10,10 @@ void jugador::inicia()
     //animacion = 0;
     x = 620;
     y = 362;
-
-    
-
-
 }
 void jugador::pinta(int sx, int sy) {
-
-    al_draw_bitmap_region(p1, sx, sy * al_get_bitmap_height(p1) / 4, al_get_bitmap_width(p1) / 3, al_get_bitmap_height(p1) / 4, x, y, NULL);
+    al_convert_mask_to_alpha(p1, al_map_rgb(0, 0, 0));
+    al_draw_bitmap_region(p1, sx, sy * 50, 32, 50, x, y, NULL);
 
 
     /*
@@ -39,79 +35,73 @@ void jugador::pinta(int sx, int sy) {
         al_draw_bitmap_region(p1,animacion * 32, direccion * 48, x, y, 32, 48,ALLEGRO_FLIP_HORIZONTAL );*/
 }
 
-/*void player::teclado(player jugador) {
-    ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
-    ALLEGRO_EVENT events;
-    al_wait_for_event(event_queue, &events);
-    ALLEGRO_KEYBOARD_STATE keyState;
+void jugador::teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events,
+    bool done, int& sourceX, int& sourceY, int& dir, bool draw, bool active, int moveSpeed) {
+
     enum Direction { DOWN, LEFT, RIGHT, UP };
+
+    al_wait_for_event(event_queue, &events);
     al_get_keyboard_state(&keyState);
-
-    bool done = false, draw = true, active = false;
-    int sourceX = 32, sourceY = 0;
-    int y, x, moveSpeed;
-    int dir=DOWN;
-
-    while (!done) {
-        if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+    if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+        done = true;
+    }
+    else if (events.type == ALLEGRO_EVENT_TIMER) {
+        active = true;
+        if (al_key_down(&keyState, ALLEGRO_KEY_S)) {
+            this->y += moveSpeed;
+            dir = DOWN;
+        }
+        else if (al_key_down(&keyState, ALLEGRO_KEY_W)) {
+            this->y -= moveSpeed;
+            dir = UP;
+        }
+        else if (al_key_down(&keyState, ALLEGRO_KEY_SPACE)) {
+            moveSpeed = 5;
+        }
+        else if (al_key_down(&keyState, ALLEGRO_KEY_D)) {
+            this->x += moveSpeed;
+            dir = RIGHT;
+        }
+        else if (al_key_down(&keyState, ALLEGRO_KEY_A)) {
+            this->x -= moveSpeed;
+            dir = LEFT;
+        }
+        else if (al_key_down(&keyState, ALLEGRO_KEY_LCTRL && ataca == 0)) {
+            ataca = 1;
+        }
+        else if (al_key_down(&keyState, ALLEGRO_KEY_LCTRL && ataca == 1)) {
+            ataca = 2;
+        }
+        else if (al_key_down(&keyState, ALLEGRO_KEY_ESCAPE))
+        {
             done = true;
         }
-        else if (events.type == ALLEGRO_EVENT_TIMER) {
-            active = true;
-            if (al_key_down(&keyState, ALLEGRO_KEY_S)) {
-                y += moveSpeed;
-                dir = DOWN;
-            }
-
-            else if (al_key_down(&keyState, ALLEGRO_KEY_W)) {
-                y -= moveSpeed;
-                dir = UP;
-            }
-            else if (al_key_down(&keyState, ALLEGRO_KEY_D)) {
-                x += moveSpeed;
-                dir = RIGHT;
-            }
-            else if (al_key_down(&keyState, ALLEGRO_KEY_A)) {
-                x -= moveSpeed;
-                dir = LEFT;
-            }
-
-            else if (al_key_down(&keyState, ALLEGRO_KEY_ESCAPE))
-            {
-                done = true;
-            }
-            else {
-                active = false;
-            }
-
-
-        }
-        if (active) {
-            sourceX += al_get_bitmap_width(p1) / 3;
-        }
         else {
-            sourceX = 32;
-        }
-        if (sourceX >= al_get_bitmap_width(p1)) {
-            sourceX = 0;
-        }
-        sourceY = dir;
-        draw = true;
-
-        if (draw) {
-            jugador.setx(x);
-            jugador.sety(y);
-            pinta_juego(jugador, sourceX, sourceY);
-            al_flip_display();
+            active = false;
         }
 
-        // limites
-        if (x < 0) x = 0;
-        if (x > PANTALLA_ANCHO) x = PANTALLA_ANCHO;
-        if (y < 0) y = 0;
-        if (y > PANTALLA_ALTO)  y = PANTALLA_ALTO;
     }
-}*/
+    if (active) {
+        sourceX += al_get_bitmap_width(this->getBitmap()) / 3;
+        //sourceX += al_get_bitmap_width(arma1.getBitmap()) / 6;
+    }
+    else {
+        sourceX = 32;
+    }
+    if (sourceX >= al_get_bitmap_width(this->getBitmap())) {
+        sourceX = 0;
+    }
+    sourceY = dir;
+    draw = true;
+    if (draw) {
+        this->setx(x);
+        this->sety(y);
+        arma1.setx(this->getx());
+        arma1.sety(this->gety());
+    }
+
+    return;
+}
 
 void jugador::posiciona(int _x, int _y) {
     x = _x;

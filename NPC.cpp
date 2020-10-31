@@ -20,6 +20,7 @@ void NPC::inicia()
 
 void NPC::pinta2(int sx, int sy) {
 
-    al_draw_bitmap_region(npc, sx, sy * al_get_bitmap_height(npc) / 4, al_get_bitmap_width(npc) / 8, al_get_bitmap_height(npc) / 4, x, y, NULL);
+    al_convert_mask_to_alpha(npc, al_map_rgb(0, 0, 0));
+    al_draw_bitmap_region(npc, sx, sy * 46, 30, 46, x, y, NULL);
 
 }

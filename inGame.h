@@ -1,7 +1,6 @@
 #pragma once
 #include "NPC.h"
 #include "jugador.h"
-
 /*#ifndef INGAME_H_INCLUDED
 #define INGAME_H_INCLUDED*/
 //#include "allegro5/allegro.h"
@@ -21,16 +20,18 @@ class inGame {
         ALLEGRO_BITMAP* cursor = al_load_bitmap("IMG/cursor.bmp");
         ALLEGRO_COLOR vacio = al_map_rgb(0, 0, 0);
     public:
+        int encima, debajo, izquierda, derecha;
         ALLEGRO_BITMAP* fondo = al_load_bitmap("IMG/Arena.bmp");
         ALLEGRO_COLOR rojito = al_map_rgb(255, 0, 0);
         void pinta_fondo();
         void pinta_jugador(jugador jugador, int x, int y);
         void pinta_npc(NPC guardia, int x, int y);
-        void pinta_arma(Armas arma1, int x, int y);
+        void pinta_arma(Armas arma1, int sourceX, int sourceY, int x, int y);
         //void carga_juego(jugador jugador, NPC guardia, Armas arma1);
         //void carga_juego(jugador jugador, NPC guardia, Armas arma1);
         void actualiza_juego(jugador jugador);
         void juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events);
         void menu_principal(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, bool done, int x, int y);
-        //~inGame();
+        bool colision( int x, int y, int npc_x, int npc_y, int width, int height, int dir, float moveSpeed);
+        ~inGame();
 };

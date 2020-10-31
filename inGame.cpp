@@ -41,40 +41,17 @@ void inGame::actualiza_juego(jugador jugador)
     int ax, ay;
     ax = jugador.getx();
     ay = jugador.gety();
-    //jugador.teclado();
+    
 
-    // comprobar si colisiona con el mapa
     bool choca = false;
     int px = jugador.getx();
     int py = jugador.gety();
-    /* for (int ci = 0; ci < 32; ci++)
-     {
-         for (int cj = 16; cj < 32; cj++)
-         {
-
-             if (al_get_pixel(choque, px + ci, py + cj) == rojito) {
-                 choca = true;
-                 ci = 32;
-                 cj = 32;
-             }
-             if (al_get_pixel(choque, px + ci, py + cj) == 0x00ff00) salir = true;
-         }
-     }
-     if (choca) {
-         // vuelve al estado anterior
-         jugador.posiciona(ax, ay);
-     }
-     cout << px << endl << py << endl;
-
- }*/
+    
 }
 
 void inGame::pinta_jugador(jugador jugador, int x, int y)
 {
-    //al_clear_to_color(al_map_rgb(0, 0, 0));
-    //al_draw_bitmap(fondo, 0, 0, NULL);
     jugador.pinta(x, y);
-    //al_flip_display();
 }
 
 void inGame::pinta_fondo()
@@ -85,21 +62,26 @@ void inGame::pinta_fondo()
 }
 
 void inGame::pinta_npc(NPC guardia, int x, int y) {
-
-    //al_clear_to_color(al_map_rgb(0, 0, 0));
-    //al_draw_bitmap(fondo, 0, 0, NULL);
     guardia.pinta2(x, y);
-    // al_flip_display();
 }
 
-void inGame::pinta_arma(Armas arma1, int x, int y) {
+void inGame::pinta_arma(Armas arma1, int sourceX, int sourceY, int x, int y) {
+    arma1.pinta(sourceX, sourceY, x, y);
+}
 
-    arma1.pinta(x,y);
-
+//acá vamos a declarar las colisiones
+bool inGame::colision(int x, int y, int npc_x, int npc_y, int width, int height, int dir, float moveSpeed) {
+    
+    if (x + width < npc_x || x > npc_x + width || y + height < npc_y || y > npc_y + height) {
+        return false;
+    }
+    else
+    {
+    return true;
+    }
 }
 
 void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue,  ALLEGRO_EVENT events){
-
     jugador jugador;
     NPC guardia;
     Armas arma1;
@@ -107,7 +89,6 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
     ALLEGRO_BITMAP* p1 = jugador.getBitmap();
     ALLEGRO_BITMAP* npc = guardia.getBitmap();
     ALLEGRO_COLOR rojito = al_map_rgb(255, 0, 0);
-
 
     ///this->carga_juego();
 
@@ -117,97 +98,49 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
     arma1.inicia(x, y);
     guardia.inicia();
 
-
     bool a = false;
     bool draw = true, active = false;
-    enum Direction { DOWN, LEFT, RIGHT, UP };
-    float moveSpeed = 5;
+    
+    jugador.setSpeed(3);
     int sourceX = 32, sourceY = 0, dir = sourceY;
 
     while (!a) {
-        actualiza_juego(jugador);
-        al_clear_to_color(vacio);
-        pinta_fondo();
-        pinta_npc(guardia, 0, 0);
-        //al_clear_to_color(vacio);
-        pinta_jugador(jugador, sourceX, dir);
-        pinta_arma(arma1, sourceX, dir);
-
 
         int x, y;
 
         x = jugador.getx();
         y = jugador.gety();
 
+        actualiza_juego(jugador);
+        //al_clear_to_color(vacio);
+        //pinta_fondo();
+        //pinta_npc(guardia, 0, 0);
+        ///al_clear_to_color(vacio);
+       // pinta_jugador(jugador, sourceX, dir);
+        //pinta_arma(arma1, sourceX, dir);
 
         bool done = false;
         //jugador.teclado(jugador);
         while (!done)
         {
+            jugador.teclado(arma1, keyState, event_queue, events, done, sourceX, sourceY, dir, draw, active, jugador.getSpeed());
+            //aca iría el teclado en caso de explosión de código
 
-            al_wait_for_event(event_queue, &events);
-            al_get_keyboard_state(&keyState);
-            if (events.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-                done = true;
-            }
-            else if (events.type == ALLEGRO_EVENT_TIMER) {
-                active = true;
-                if (al_key_down(&keyState, ALLEGRO_KEY_S)) {
-                    y += moveSpeed;
-                    dir = DOWN;
-                }
-
-                else if (al_key_down(&keyState, ALLEGRO_KEY_W)) {
-                    y -= moveSpeed;
-                    dir = UP;
-                }
-                else if (al_key_down(&keyState, ALLEGRO_KEY_D)) {
-                    x += moveSpeed;
-                    dir = RIGHT;
-                }
-                else if (al_key_down(&keyState, ALLEGRO_KEY_A)) {
-                    x -= moveSpeed;
-                    dir = LEFT;
-                }
-
-                else if (al_key_down(&keyState, ALLEGRO_KEY_ESCAPE))
-                {
-                    done = true;
-                }
-                else {
-                    active = false;
-                }
-
-
-            }
-            if (active) {
-                sourceX += al_get_bitmap_width(jugador.getBitmap()) / 3;
-            }
-            else {
-                sourceX = 32;
-            }
-            if (sourceX >= al_get_bitmap_width(jugador.getBitmap())) {
-                sourceX = 0;
-            }
-            sourceY = dir;
-            draw = true;
-
-            if (draw) {
-                jugador.setx(x);
-                jugador.sety(y);
+            if(draw) {
                 pinta_fondo();
                 pinta_jugador(jugador, sourceX, sourceY);
-                pinta_arma(arma1, sourceX, sourceY);
-                //al_flip_display();
+                if (colision(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), sourceX, sourceY, dir, jugador.getSpeed())){
+                    if (dir == 0) jugador.setmy(jugador.getSpeed()) ;
+                    else if (dir == 1) jugador.setpx(jugador.getSpeed()) ;
+                    else if (dir == 2) jugador.setmx(jugador.getSpeed()) ;
+                    else if (dir == 3) jugador.setpy(jugador.getSpeed()) ;
+                }
                 pinta_npc(guardia, 0, 0);
+                pinta_arma(arma1, sourceX, sourceY, jugador.getx(), jugador.gety());
                 al_flip_display();
             }
-
         }
-
-
     }
-
 }
 
 void inGame::menu_principal(ALLEGRO_KEYBOARD_STATE keyState,  ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, bool done, int x, int y) {
@@ -218,7 +151,7 @@ void inGame::menu_principal(ALLEGRO_KEYBOARD_STATE keyState,  ALLEGRO_EVENT_QUEU
         al_draw_bitmap(menu3, 0, 0, NULL);
         al_flip_display();
         if (events.mouse.button & 1) {
-            this->juego_inicia(keyState, event_queue , events);
+            return;
         }
     }
 
@@ -234,7 +167,6 @@ void inGame::menu_principal(ALLEGRO_KEYBOARD_STATE keyState,  ALLEGRO_EVENT_QUEU
         }
     }
 
-
     else if (x > 388 && x < 921 &&
         y>408 && y < 590) {
         al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -246,7 +178,6 @@ void inGame::menu_principal(ALLEGRO_KEYBOARD_STATE keyState,  ALLEGRO_EVENT_QUEU
             done = true;
         }
     }
-
 
     else if (x > 970 && x < 1262 &&
         y>531 && y < 594) {
@@ -275,12 +206,7 @@ void inGame::menu_principal(ALLEGRO_KEYBOARD_STATE keyState,  ALLEGRO_EVENT_QUEU
         al_draw_bitmap(menu1, 0, 0, NULL);
         al_flip_display();
     }
-
-
 }
 
-/*inGame::~inGame() {
-
-
-
-}*/
+inGame::~inGame() {
+}
