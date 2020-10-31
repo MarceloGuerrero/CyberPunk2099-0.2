@@ -4,9 +4,9 @@
 
 using namespace std;
 
-void Armas::pinta(int sx, int sy, int _x, int _y) {
+void Armas::pinta(int sx, int sy) {
 
-    al_draw_bitmap_region(arma1, sx, sy * al_get_bitmap_height(arma1) / 4, al_get_bitmap_width(arma1) / 6, al_get_bitmap_height(arma1) / 4, _x, _y, NULL);
+    al_draw_bitmap_region(arma1, sx, sy * al_get_bitmap_height(arma1) / 4, al_get_bitmap_width(arma1) / 6, al_get_bitmap_height(arma1) / 4, x, y, NULL);
 
 
     /*

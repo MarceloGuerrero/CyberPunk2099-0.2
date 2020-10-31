@@ -26,7 +26,7 @@ class inGame {
         void pinta_fondo();
         void pinta_jugador(jugador jugador, int x, int y);
         void pinta_npc(NPC guardia, int x, int y);
-        void pinta_arma(Armas arma1, int x, int y, int _x, int _y);
+        void pinta_arma(Armas arma1, int x, int y);
         //void carga_juego(jugador jugador, NPC guardia, Armas arma1);
         //void carga_juego(jugador jugador, NPC guardia, Armas arma1);
         void actualiza_juego(jugador jugador);
