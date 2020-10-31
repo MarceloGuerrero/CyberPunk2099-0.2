@@ -20,6 +20,7 @@ class inGame {
         ALLEGRO_BITMAP* cursor = al_load_bitmap("IMG/cursor.bmp");
         ALLEGRO_COLOR vacio = al_map_rgb(0, 0, 0);
     public:
+        void GAME();
         int encima, debajo, izquierda, derecha;
         ALLEGRO_BITMAP* fondo = al_load_bitmap("IMG/Arena.bmp");
         ALLEGRO_COLOR rojito = al_map_rgb(255, 0, 0);
@@ -27,11 +28,13 @@ class inGame {
         void pinta_jugador(jugador jugador, int x, int y);
         void pinta_npc(NPC guardia, int x, int y);
         void pinta_arma(Armas arma1, int sourceX, int sourceY, int x, int y);
+        //void teclado(jugador jugador,int x, int y, Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events,
+          //  bool done, int& sourceX, int& sourceY, int& dir, bool draw, bool active, int moveSpeed);
         //void carga_juego(jugador jugador, NPC guardia, Armas arma1);
         //void carga_juego(jugador jugador, NPC guardia, Armas arma1);
         void actualiza_juego(jugador jugador);
-        void juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events);
-        void menu_principal(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, bool done, int x, int y);
+        void juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, ALLEGRO_TIMER* timer, ALLEGRO_TIMER* frameTimer);
+        void menu_principal(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, bool &done, int x, int y);
         bool colision( int x, int y, int npc_x, int npc_y, int width, int height, int dir, float moveSpeed);
         ~inGame();
 };

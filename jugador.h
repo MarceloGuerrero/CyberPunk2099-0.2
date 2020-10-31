@@ -20,9 +20,12 @@ public:
     void inicia();
     void pinta(int, int);
     void teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events,
-        bool done, int &sourceX, int &sourceY, int &dir, bool draw, bool active, int moveSpeed);
+        bool done, int &sourceX, int &sourceY, int &dir, bool draw, bool active, int moveSpeed, ALLEGRO_TIMER* Timer, ALLEGRO_TIMER* frameTimer);
     int getx() { return x; };
     int gety() { return y; };
+    int getAtk() { return ataca; };
+    float getSpeed() { return moveSpeed; };
+    void setAtk(int Atk) { ataca = Atk; };
     void setx(int _x) { x = _x; };
     void sety(int _y) { y = _y; };
     void setpx(int _x) { x += _x; };
@@ -32,8 +35,6 @@ public:
     void setSpeed(float _moveSpeed) { moveSpeed = _moveSpeed; };
     void setpSpeed(float _moveSpeed) { moveSpeed += _moveSpeed; };
     void setmSpeed(float _moveSpeed) { moveSpeed -= _moveSpeed; };
-
-    float getSpeed() { return moveSpeed; };
     ALLEGRO_BITMAP* getBitmap() { return p1; };
     void posiciona(int _x, int _y);
     bool atacando() { return ataca > 1; };
