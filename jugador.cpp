@@ -36,7 +36,7 @@ void jugador::pinta(int sx, int sy) {
 }
 
 void jugador::teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events,
-    bool done, int& sourceX, int& sourceY, int& dir, bool draw, bool active, int moveSpeed, ALLEGRO_TIMER* timer, ALLEGRO_TIMER* frameTimer) {
+    bool done, float& sourceX, float& sourceY, float&dir, bool draw, bool active, int moveSpeed, ALLEGRO_TIMER* timer, ALLEGRO_TIMER* frameTimer) {
 
     /// enum Direction { DOWN, LEFT, RIGHT, UP };
 
@@ -69,9 +69,11 @@ void jugador::teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVEN
             }
             else if (al_key_down(&keyState, ALLEGRO_KEY_LCTRL && ataca == 0)) {
                 ataca = 1;
+                cout << ataca;
             }
             else if (al_key_down(&keyState, ALLEGRO_KEY_LCTRL && ataca == 1)) {
                 ataca = 2;
+                cout << ataca;
             }
             else if (al_key_down(&keyState, ALLEGRO_KEY_ESCAPE))
             {
@@ -99,7 +101,7 @@ void jugador::teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVEN
         //return;
 }
 
-void jugador::posiciona(int _x, int _y) {
+void jugador::posiciona(float _x, float _y) {
     x = _x;
     y = _y;
 }

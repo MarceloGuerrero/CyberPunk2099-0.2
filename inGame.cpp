@@ -114,12 +114,12 @@ void inGame::actualiza_juego(jugador jugador)
     
 
     bool choca = false;
-    int px = jugador.getx();
-    int py = jugador.gety();
+    float px = jugador.getx();
+    float py = jugador.gety();
     
 }
 
-void inGame::pinta_jugador(jugador jugador, int x, int y)
+void inGame::pinta_jugador(jugador jugador, float x, float y)
 {
     jugador.pinta(x, y);
 }
@@ -131,16 +131,16 @@ void inGame::pinta_fondo()
     //al_flip_display();
 }
 
-void inGame::pinta_npc(NPC guardia, int x, int y) {
+void inGame::pinta_npc(NPC guardia, float x, float y) {
     guardia.pinta2(x, y);
 }
 
-void inGame::pinta_arma(Armas arma1, int sourceX, int sourceY, int x, int y) {
+void inGame::pinta_arma(Armas arma1, float sourceX, float sourceY, float x, float y) {
     arma1.pinta(sourceX, sourceY, x, y);
 }
 
 //acá vamos a declarar las colisiones
-bool inGame::colision(int x, int y, int npc_x, int npc_y, int width, int height, int dir, float moveSpeed) {
+bool inGame::colision(float x, float y, float npc_x, float npc_y, float width, float height, float dir, float moveSpeed) {
     
     if (x + width < npc_x || x > npc_x + width || y + height < npc_y || y > npc_y + height) {
         return false;
@@ -174,10 +174,8 @@ void inGame::GAME(){
     NPC guardia;
     Armas arma1;
     inGame eljuego;
-
     jugador.inicia(arma1);
     guardia.inicia();
-
     eljuego.carga_juego(jugador, guardia, arma1);*/
 
     al_start_timer(timer);
@@ -205,14 +203,14 @@ void inGame::GAME(){
             else if (events.mouse.button & 2);
         }
         //comienza el jueguin
-        menu_principal(keyState, event_queue, events, done, x, y);
+        menu_principal(event_queue, events, done, x, y);
         juego_inicia(keyState, event_queue, events, timer, frameTimer);
     }
     al_destroy_event_queue(event_queue);
     this->~inGame();
 }
 
-void inGame::menu_principal(ALLEGRO_KEYBOARD_STATE keyState,  ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, bool &done, int x, int y) {
+void inGame::menu_principal(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, bool &done, float x, float y) {
 
     if (x > 970 && x < 1120 &&
         y>360 && y < 420) {
@@ -220,7 +218,7 @@ void inGame::menu_principal(ALLEGRO_KEYBOARD_STATE keyState,  ALLEGRO_EVENT_QUEU
         al_draw_bitmap(menu3, 0, 0, NULL);
         al_flip_display();
         if (events.mouse.button & 1) {
-            return;
+            //return;
         }
     }
 
@@ -259,6 +257,7 @@ void inGame::menu_principal(ALLEGRO_KEYBOARD_STATE keyState,  ALLEGRO_EVENT_QUEU
             done = true;
         }
     }
+
     else if (x > 970 && x < 1105 &&
         y>624 && y < 688) {
         al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -270,11 +269,13 @@ void inGame::menu_principal(ALLEGRO_KEYBOARD_STATE keyState,  ALLEGRO_EVENT_QUEU
             done = true;
         }
     }
+
     else {
         al_clear_to_color(al_map_rgb(0, 0, 0));
         al_draw_bitmap(menu1, 0, 0, NULL);
         al_flip_display();
     }
+    
 }
 
 void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, ALLEGRO_TIMER* timer, ALLEGRO_TIMER* frameTimer) {
@@ -290,8 +291,8 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
     ///this->carga_juego();
 
     jugador.inicia();
-    int x = jugador.getx();
-    int y = jugador.getx();
+    float x = jugador.getx();
+    float y = jugador.getx();
     arma1.inicia(x, y);
     guardia.inicia();
 
@@ -299,7 +300,7 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
     bool draw = true, active = false;
 
     jugador.setSpeed(3);
-    int sourceX = 32, sourceY = 0, dir = sourceY;
+    float sourceX = 32, sourceY = 0, dir = sourceY;
 
     while (!a) {
        // actualiza_juego(jugador);
@@ -313,14 +314,14 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
         bool done = false;
         while (!done)
         {
+            
             //teclado(jugador,x, y, arma1, keyState, event_queue, events, done, sourceX, sourceY, dir, draw, active, jugador.getSpeed());
             //aca iría el teclado en caso de explosión de código
             jugador.teclado(arma1, keyState, event_queue, events, done, sourceX, sourceY, dir, draw, active, jugador.getSpeed(), timer, frameTimer);
             if (draw) {
-
                 pinta_fondo();
                 pinta_jugador(jugador, sourceX, sourceY);
-                if (colision(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), sourceX, sourceY, dir, jugador.getSpeed())) {
+                if (colision(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, dir, jugador.getSpeed())) {
                     if (dir == 0) jugador.setmy(jugador.getSpeed());
                     else if (dir == 1) jugador.setpx(jugador.getSpeed());
                     else if (dir == 2) jugador.setmx(jugador.getSpeed());

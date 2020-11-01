@@ -7,7 +7,7 @@
 class jugador {
 private:
     ALLEGRO_BITMAP* p1;
-    int x, y;
+    float x, y;
     /*int direccion;
     int animacion;*/
     int ataca;
@@ -20,23 +20,23 @@ public:
     void inicia();
     void pinta(int, int);
     void teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events,
-        bool done, int &sourceX, int &sourceY, int &dir, bool draw, bool active, int moveSpeed, ALLEGRO_TIMER* Timer, ALLEGRO_TIMER* frameTimer);
-    int getx() { return x; };
-    int gety() { return y; };
+    bool done, float &sourceX, float &sourceY, float&dir, bool draw, bool active, int moveSpeed, ALLEGRO_TIMER* Timer, ALLEGRO_TIMER* frameTimer);
+    float getx() { return x; };
+    float gety() { return y; };
     int getAtk() { return ataca; };
     float getSpeed() { return moveSpeed; };
     void setAtk(int Atk) { ataca = Atk; };
-    void setx(int _x) { x = _x; };
-    void sety(int _y) { y = _y; };
-    void setpx(int _x) { x += _x; };
-    void setmx(int _y) { y -= _y; };
-    void setpy(int _x) { x += _x; };
-    void setmy(int _y) { y -= _y; };
+    void setx(float _x) { x = _x; };
+    void sety(float _y) { y = _y; };
+    void setpx(float _x) { x += _x; };
+    void setmx(float _x) { x -= _x; };
+    void setpy(float _y) { y += _y; };
+    void setmy(float _y) { y -= _y; };
     void setSpeed(float _moveSpeed) { moveSpeed = _moveSpeed; };
     void setpSpeed(float _moveSpeed) { moveSpeed += _moveSpeed; };
     void setmSpeed(float _moveSpeed) { moveSpeed -= _moveSpeed; };
     ALLEGRO_BITMAP* getBitmap() { return p1; };
-    void posiciona(int _x, int _y);
+    void posiciona(float _x, float _y);
     bool atacando() { return ataca > 1; };
     void no_ataca() { ataca = -3; };
 };

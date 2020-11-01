@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void NPC::posiciona(int _x, int _y) {
+void NPC::posiciona(float _x, float _y) {
     x = _x;
     y = _y;
 }
@@ -18,7 +18,7 @@ void NPC::inicia()
     y = 500;
 }
 
-void NPC::pinta2(int sx, int sy) {
+void NPC::pinta2(float sx, float sy) {
     al_convert_mask_to_alpha(npc, al_map_rgb(0, 0, 0));
     al_draw_bitmap_region(npc, sx, sy * 46, 30, 46, x, y, NULL);
 }
