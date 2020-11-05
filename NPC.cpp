@@ -1,11 +1,42 @@
 #include "NPC.h"
 #include <iostream>
-
 using namespace std;
-
 void NPC::posiciona(float _x, float _y) {
     x = _x;
     y = _y;
+}
+
+void NPC::sufre_daño(int dmg, NPC &guardia)
+{
+    //muerto = false;
+
+    if (!muerto)
+    {
+        vidaAct-= dmg;
+        cout << "vidita" << vidaAct << endl;
+        if (vidaAct <= 0)
+        {
+            muerto = true;
+            guardia.~NPC();
+        }
+    }
+}
+
+NPC::~NPC()
+{
+    if (muerto) {
+       // al_destroy_bitmap(npc);
+    }
+}
+
+
+
+NPC::NPC(int _vida)
+{
+    vida = _vida;
+    vidaAct = vida;
+    cout << "esta es la vida: " << vida << endl;
+    cout << "esta es la vida actual: " << vidaAct << endl;
 }
 
 void NPC::inicia()
@@ -14,9 +45,10 @@ void NPC::inicia()
     // inicializar vbles
     //direccion = 0;
     //animacion = 0;
-    x = 500;
-    y = 500;
+    this->x = 500;
+    this->y = 500;
 }
+
 
 void NPC::pinta2(float sx, float sy) {
     al_convert_mask_to_alpha(npc, al_map_rgb(0, 0, 0));

@@ -7,7 +7,6 @@ using namespace std;
 #include "allegro5/allegro_font.h"
 #include "allegro5/allegro_ttf.h"
 #include "windows.h"
-#include "Globales.h"
 #include "inGame.h"
 /* Este comentario es pitoputopato*/
 
@@ -19,9 +18,13 @@ void inicia_allegro(){
     al_init_primitives_addon();
     al_install_mouse();
     al_install_keyboard();
-    ALLEGRO_DISPLAY *ventanita = al_create_display(PANTALLA_ANCHO, PANTALLA_ALTO);
+    const int PANTALLA_ANCHO = 1280;
+    const int PANTALLA_ALTO = 720;
+    ALLEGRO_DISPLAY* ventanita = al_create_display(PANTALLA_ANCHO, PANTALLA_ALTO);
     al_set_target_backbuffer(ventanita);
 }
+    
+    
 
 // programa principal
 int main() {
@@ -30,7 +33,6 @@ int main() {
     inGame eljuego;
 
     eljuego.GAME();
-
     return 0;
 }
  

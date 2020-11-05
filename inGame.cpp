@@ -1,7 +1,5 @@
 #include "inGame.h"
 #include <iostream>
-
-
 using namespace std;
 /*void inGame::carga_juego(, NPC guardia, Armas arma1)
 {
@@ -131,7 +129,7 @@ void inGame::pinta_fondo()
     //al_flip_display();
 }
 
-void inGame::pinta_npc(NPC guardia, float x, float y) {
+void inGame::pinta_npc(NPC& guardia, float x, float y) {
     guardia.pinta2(x, y);
 }
 
@@ -148,6 +146,21 @@ bool inGame::colision(float x, float y, float npc_x, float npc_y, float width, f
     else
     {
     return true;
+    }
+}
+
+void inGame::dmg_npc(jugador jugador, NPC& guardia)
+{
+    if ((jugador.atacando() == true) && (colision(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, jugador.getDir(), jugador.getSpeed())==true)
+        && (guardia.ha_muerto()==false))
+    {
+        int xn = 2 + rand() % 2;
+        //cout << endl<< xn;
+        //jugador.no_ataca();
+        //sonido_espada_da();
+        guardia.sufre_daño(xn, guardia);    
+        cout << "tiene :" << guardia.getVidaAct() << "de vida" << endl;
+
     }
 }
 
@@ -173,10 +186,9 @@ void inGame::GAME(){
     /*jugador jugador;
     NPC guardia;
     Armas arma1;
-    inGame eljuego;
-    jugador.inicia(arma1);
+    jugador.inicia();
     guardia.inicia();
-    eljuego.carga_juego(jugador, guardia, arma1);*/
+    //eljuego.carga_juego(jugador, guardia, arma1);*/
 
     al_start_timer(timer);
     al_start_timer(frameTimer);
@@ -184,9 +196,11 @@ void inGame::GAME(){
     int x = 0, y = 0;
 
     bool done = false;
+    
+    ALLEGRO_EVENT events;
+    ALLEGRO_KEYBOARD_STATE keyState;
     while (!done) {
-        ALLEGRO_EVENT events;
-        ALLEGRO_KEYBOARD_STATE keyState;
+        
         al_wait_for_event(event_queue, &events);
         al_get_keyboard_state(&keyState);
 
@@ -204,8 +218,9 @@ void inGame::GAME(){
         }
         //comienza el jueguin
         menu_principal(event_queue, events, done, x, y);
-        juego_inicia(keyState, event_queue, events, timer, frameTimer);
     }
+    
+    juego_inicia(keyState, event_queue, events, timer, frameTimer);
     al_destroy_event_queue(event_queue);
     this->~inGame();
 }
@@ -218,7 +233,7 @@ void inGame::menu_principal(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT even
         al_draw_bitmap(menu3, 0, 0, NULL);
         al_flip_display();
         if (events.mouse.button & 1) {
-            //return;
+            done = true;
         }
     }
 
@@ -280,7 +295,7 @@ void inGame::menu_principal(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT even
 
 void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, ALLEGRO_TIMER* timer, ALLEGRO_TIMER* frameTimer) {
     jugador jugador;
-    NPC guardia;
+    NPC guardia(1000);
     Armas arma1;
 
     al_unregister_event_source(event_queue, al_get_mouse_event_source());
@@ -303,14 +318,14 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
     float sourceX = 32, sourceY = 0, dir = sourceY;
 
     while (!a) {
-       // actualiza_juego(jugador);
-        //al_clear_to_color(vacio);
-        //pinta_fondo();
-        //pinta_npc(guardia, 0, 0);
-        ///al_clear_to_color(vacio);
-       // pinta_jugador(jugador, sourceX, dir);
-        //pinta_arma(arma1, sourceX, dir);
-
+        /*actualiza_juego(jugador);
+        al_clear_to_color(vacio);
+        pinta_fondo();
+       pinta_npc(guardia, 0, 0);
+        al_clear_to_color(vacio);
+        pinta_jugador(jugador, sourceX, dir);
+        pinta_arma(arma1, sourceX, dir, jugador.getx(), jugador.gety());
+        */
         bool done = false;
         while (!done)
         {
@@ -321,13 +336,24 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
             if (draw) {
                 pinta_fondo();
                 pinta_jugador(jugador, sourceX, sourceY);
-                if (colision(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, dir, jugador.getSpeed())) {
+                dmg_npc(jugador,guardia);
+                cout << guardia.getVidaAct() << endl;
+                
+                if (colision(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, dir, jugador.getSpeed()) && !(guardia.ha_muerto() ) ){
                     if (dir == 0) jugador.setmy(jugador.getSpeed());
                     else if (dir == 1) jugador.setpx(jugador.getSpeed());
                     else if (dir == 2) jugador.setmx(jugador.getSpeed());
                     else if (dir == 3) jugador.setpy(jugador.getSpeed());
+                        //cout << guardia.getVida() << endl;
                 }
-                pinta_npc(guardia, 0, 0);
+                if (!(guardia.ha_muerto())) {
+                    pinta_npc(guardia, 0, 0);
+                    //dmg_npc(jugador, guardia);
+                }
+                else {
+                    cout << "aaalamierda" << endl;
+                    guardia.~NPC();
+                }
                 pinta_arma(arma1, sourceX, sourceY, jugador.getx(), jugador.gety());
                 al_flip_display();
             }

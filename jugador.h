@@ -10,12 +10,13 @@ private:
     float x, y;
     /*int direccion;
     int animacion;*/
-    int ataca;
+    int ataca=0;
     int vida;
     int mana;
     int aguante;
     int defBase;
     float moveSpeed;
+    float ddir;
 public:
     void inicia();
     void pinta(int, int);
@@ -25,6 +26,7 @@ public:
     float gety() { return y; };
     int getAtk() { return ataca; };
     float getSpeed() { return moveSpeed; };
+    float getDir() { return ddir; };
     void setAtk(int Atk) { ataca = Atk; };
     void setx(float _x) { x = _x; };
     void sety(float _y) { y = _y; };
@@ -35,10 +37,11 @@ public:
     void setSpeed(float _moveSpeed) { moveSpeed = _moveSpeed; };
     void setpSpeed(float _moveSpeed) { moveSpeed += _moveSpeed; };
     void setmSpeed(float _moveSpeed) { moveSpeed -= _moveSpeed; };
+    void setDir(float dir) { ddir = dir; };
     ALLEGRO_BITMAP* getBitmap() { return p1; };
     void posiciona(float _x, float _y);
     bool atacando() { return ataca > 1; };
-    void no_ataca() { ataca = -3; };
+    //void no_ataca() { ataca = -3; };
 };
 
 

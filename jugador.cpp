@@ -66,15 +66,17 @@ void jugador::teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVEN
             else if (al_key_down(&keyState, ALLEGRO_KEY_A)) {
                 this->x -= moveSpeed;
                 dir = 1;
+
             }
-            else if (al_key_down(&keyState, ALLEGRO_KEY_LCTRL && ataca == 0)) {
+            else if (al_key_down(&keyState, ALLEGRO_KEY_R) && ataca == 0) {
                 ataca = 1;
                 cout << ataca;
             }
-            else if (al_key_down(&keyState, ALLEGRO_KEY_LCTRL && ataca == 1)) {
+            else if (al_key_down(&keyState, ALLEGRO_KEY_R) && ataca == 1) {
                 ataca = 2;
                 cout << ataca;
             }
+            else if (ataca == 2) ataca = 0;
             else if (al_key_down(&keyState, ALLEGRO_KEY_ESCAPE))
             {
                 done = true;
