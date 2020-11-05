@@ -34,10 +34,11 @@ public:
     void sety(float _y) { y = _y; };
     ALLEGRO_BITMAP* getBitmap() { return npc; };
     void posiciona(float _x, float _y);
-    bool atacando() { return ataca > 1; };
+    bool atacando() ;
     void no_ataca() { ataca = -3; };
     void sufre_daño(int dmg, NPC &guardia);
     bool ha_muerto() { return muerto; };
+    
     //void IA(jugador &jugador);
     ~NPC();
 };

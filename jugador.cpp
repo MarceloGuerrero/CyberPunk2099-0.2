@@ -70,11 +70,11 @@ void jugador::teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVEN
             }
             else if (al_key_down(&keyState, ALLEGRO_KEY_R) && ataca == 0) {
                 ataca = 1;
-                cout << ataca;
+                //cout << ataca;
             }
             else if (al_key_down(&keyState, ALLEGRO_KEY_R) && ataca == 1) {
                 ataca = 2;
-                cout << ataca;
+                //cout << ataca;
             }
             else if (ataca == 2) ataca = 0;
             else if (al_key_down(&keyState, ALLEGRO_KEY_ESCAPE))
@@ -106,4 +106,25 @@ void jugador::teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVEN
 void jugador::posiciona(float _x, float _y) {
     x = _x;
     y = _y;
+}
+
+void jugador::sufre_daño(int dmg, jugador& jugador) {
+
+    if (!muerto)
+    {
+        vida -= dmg;
+        //cout << "vidita" << vidaAct << endl;
+        if (vida <= 0)
+        {
+            muerto = true;
+            jugador.~jugador();
+        }
+    }
+}
+
+jugador::jugador() {
+    vida = 1000;
+}
+jugador::~jugador() {
+
 }

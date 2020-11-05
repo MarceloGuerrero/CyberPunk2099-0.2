@@ -41,11 +41,12 @@ void NPC::cmd(jugador &jugador, bool cerca)
         if ((jugador.gety() - y) < 0) direccion = UP;
     }
     else {
-        direccion = QUIETO;
-    }
-    if (direccion == QUIETO) {
+        cout << "Estoy atacando " << endl;
         direccion = ATACANDO;
     }
+    /*if (direccion == QUIETO) {
+        direccion = ATACANDO;
+    }*/
    
 }
 
@@ -88,11 +89,11 @@ void NPC::draw(int sx, int sy, int cont) {
         sx += (al_get_bitmap_width(npc) / 8) * cont;
     }
     else {
-        cout << "dir "<<  dir <<endl;
+        //cout << "dir "<<  dir <<endl;
         sy = dir;
     }
-    cout << "sx " << sx << endl;
-    //if()
+    //cout << "sx " << sx << endl;
+    
     
     pinta2(sx,sy);
 }
@@ -122,3 +123,8 @@ void NPC::pinta2(float sx, float sy) {
     al_draw_bitmap_region(npc, sx, sy * (al_get_bitmap_height(npc)/4), al_get_bitmap_width(npc) / 8, al_get_bitmap_height(npc) / 4, x, y, NULL);
 }
 
+bool NPC::atacando() {
+    if (direccion == ATACANDO) {
+        return true;
+    }
+}

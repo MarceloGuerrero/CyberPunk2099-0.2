@@ -11,5 +11,6 @@ class Armas
 		void sety(int _y) { y = _y; };
 		ALLEGRO_BITMAP* getBitmap() { return armas; };
 		void inicia(int _x, int _y);
+		~Armas();
 };
 

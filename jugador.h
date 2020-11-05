@@ -17,6 +17,7 @@ private:
     int defBase;
     float moveSpeed;
     float ddir;
+    bool muerto=false;
 public:
     void inicia();
     void pinta(int, int);
@@ -27,6 +28,7 @@ public:
     int getAtk() { return ataca; };
     float getSpeed() { return moveSpeed; };
     float getDir() { return ddir; };
+    int getVida() { return vida; };
     void setAtk(int Atk) { ataca = Atk; };
     void setx(float _x) { x = _x; };
     void sety(float _y) { y = _y; };
@@ -41,6 +43,10 @@ public:
     ALLEGRO_BITMAP* getBitmap() { return p1; };
     void posiciona(float _x, float _y);
     bool atacando() { return ataca > 1; };
+    void sufre_daño(int dmg, jugador& jugador);
+    bool ha_muerto() { if (muerto)return true; };
+    jugador();
+    ~jugador();
     //void no_ataca() { ataca = -3; };
 };
 

@@ -161,7 +161,7 @@ bool inGame::cerca(float x, float y, float npc_x, float npc_y, float width, floa
 }
 
 
-void inGame::dmg_npc(jugador jugador, NPC& guardia)
+void inGame::dmg_npc(jugador& jugador, NPC& guardia)
 {
     if ((jugador.atacando() == true) && (cerca(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, jugador.getDir(), jugador.getSpeed())==true)
         && (guardia.ha_muerto()==false))
@@ -172,6 +172,22 @@ void inGame::dmg_npc(jugador jugador, NPC& guardia)
         //sonido_espada_da();
         guardia.sufre_daño(xn, guardia);    
         //cout << "tiene :" << guardia.getVidaAct() << "de vida" << endl;
+
+    }
+}
+
+void inGame::dmg_jugador(jugador &jugador, NPC& guardia) {
+
+    if ((guardia.atacando() == true) && (cerca(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, jugador.getDir(), jugador.getSpeed()) == true)
+        && (jugador.ha_muerto() == false))
+    {
+        int xn = 2 + rand() % 2;
+        //cout << "entre" << endl;
+        //jugador.no_ataca();
+        //sonido_espada_da();
+        jugador.sufre_daño(xn, jugador);
+        cout << "ESTOY ACA" << jugador.getVida() << endl;
+        //cout << "tiene :" << jugador.getVida() << "de vida" << endl;
 
     }
 }
@@ -334,10 +350,10 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
         actualiza_juego(jugador);
         al_clear_to_color(vacio);
         pinta_fondo();
-       pinta_npc(guardia, 0, 0);
+        pinta_npc(guardia, 0, 0);
         al_clear_to_color(vacio);
         pinta_jugador(jugador, sourceX, dir);
-        pinta_arma(arma1, sourceX, dir, jugador.getx(), jugador.gety());
+        //pinta_arma(arma1, sourceX, dir, jugador.getx(), jugador.gety());
         
         bool done = false;
         while (!done)
@@ -345,11 +361,21 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
             
             //teclado(jugador,x, y, arma1, keyState, event_queue, events, done, sourceX, sourceY, dir, draw, active, jugador.getSpeed());
             //aca iría el teclado en caso de explosión de código
-            jugador.teclado(arma1, keyState, event_queue, events, done, sourceX, sourceY, dir, draw, active, jugador.getSpeed(), timer, frameTimer);
+            //jugador.teclado(arma1, keyState, event_queue, events, done, sourceX, sourceY, dir, draw, active, jugador.getSpeed(), timer, frameTimer);
             if (draw) {
                 pinta_fondo();
-                pinta_jugador(jugador, sourceX, sourceY);
+                if (!jugador.ha_muerto()) {
+                    jugador.teclado(arma1, keyState, event_queue, events, done, sourceX, sourceY, dir, draw, active, jugador.getSpeed(), timer, frameTimer);
+                    pinta_jugador(jugador, sourceX, sourceY);
+                    pinta_arma(arma1, sourceX, dir, jugador.getx(), jugador.gety());
+                }
+                if (jugador.ha_muerto()) {
+                    jugador.~jugador();
+                    arma1.~Armas();
+                }
+                //pinta_jugador(jugador, sourceX, sourceY);
                 dmg_npc(jugador,guardia);
+                dmg_jugador(jugador, guardia);
                 //cout << guardia.getVidaAct() << endl;
                 
                 if (colision(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, dir, jugador.getSpeed()) && !(guardia.ha_muerto() ) ){
@@ -373,7 +399,7 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
                     
                     guardia.~NPC();
                 }
-                pinta_arma(arma1, sourceX, sourceY, jugador.getx(), jugador.gety());
+                //pinta_arma(arma1, sourceX, sourceY, jugador.getx(), jugador.gety());
                 al_flip_display();
             }
         }
