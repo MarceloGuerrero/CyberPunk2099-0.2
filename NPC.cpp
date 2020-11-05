@@ -1,4 +1,5 @@
 #include "NPC.h"
+#include "inGame.h"
 #include <iostream>
 using namespace std;
 void NPC::posiciona(float _x, float _y) {
@@ -31,6 +32,53 @@ NPC::~NPC()
 
 
 
+void NPC::cmd(jugador &jugador)
+{
+    if ((jugador.getx() - x) > 0) _estados = RIGHT;
+    if ((jugador.getx() - x) < 0) _estados = LEFT;
+    if ((jugador.gety() - y) > 0) _estados = UP;
+    if ((jugador.gety() - y) < 0) _estados = DOWN;
+}
+
+void NPC::update()
+{
+    
+    switch (_estados) {
+    case RIGHT:
+        x+= moveSpeed;
+        dir = 3;
+        //_estados = QUIETO;
+        break;
+    case LEFT:
+        x-= moveSpeed;
+        dir = 2;
+        //_estados = QUIETO;
+        break;
+    case UP:
+        y+= moveSpeed;
+        dir = 1;
+        //_estados = QUIETO;
+        break;
+    case DOWN:
+        y-= moveSpeed;
+        dir = 0;
+        //_estados = QUIETO;
+        break;
+    case QUIETO:
+        break;
+    case ATACANDO:
+        ataca = 1;
+        break;
+    }
+}
+
+void NPC::draw() {
+    int sourceX = 0;
+    sourceX += 224 / 8;
+    if (sourceX >= 224) sourceX = 0;
+    pinta2(sourceX,dir);
+}
+
 NPC::NPC(int _vida)
 {
     vida = _vida;
@@ -54,3 +102,4 @@ void NPC::pinta2(float sx, float sy) {
     al_convert_mask_to_alpha(npc, al_map_rgb(0, 0, 0));
     al_draw_bitmap_region(npc, sx, sy * 46, 30, 46, x, y, NULL);
 }
+

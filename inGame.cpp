@@ -307,7 +307,7 @@ void inGame::menu_principal(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT even
 
 void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, ALLEGRO_TIMER* timer, ALLEGRO_TIMER* frameTimer) {
     jugador jugador;
-    NPC guardia(1000);
+    NPC guardia(100);
     Armas arma1;
 
     al_unregister_event_source(event_queue, al_get_mouse_event_source());
@@ -359,7 +359,13 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
                         //cout << guardia.getVida() << endl;
                 }
                 if (!(guardia.ha_muerto())) {
+                    if (!(cerca(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, dir, jugador.getSpeed()))) {
+
+                    }
+                    guardia.cmd(jugador);
+                    guardia.update();
                     pinta_npc(guardia, 0, 0);
+                    //guardia.draw();
                     //dmg_npc(jugador, guardia);
                 }
                 else {

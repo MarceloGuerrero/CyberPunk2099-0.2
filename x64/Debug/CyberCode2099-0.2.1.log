@@ -1,5 +1,3 @@
-﻿  Source.cpp
-  inGame.cpp
+﻿  inGame.cpp
 F:\Luciano\Github\Proyecto\CyberPunk2099-0.2\inGame.cpp(229,46): warning C4390: ';': se encontró una instrucción controlada vacía; ¿es esa la intención?
-  Generando código...
   CyberCode2099-0.2.1.vcxproj -> F:\Luciano\Github\Proyecto\CyberPunk2099-0.2\x64\Debug\CyberCode2099-0.2.1.exe
