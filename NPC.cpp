@@ -35,8 +35,8 @@ NPC::NPC(int _vida)
 {
     vida = _vida;
     vidaAct = vida;
-    cout << "esta es la vida: " << vida << endl;
-    cout << "esta es la vida actual: " << vidaAct << endl;
+    //cout << "esta es la vida: " << vida << endl;
+    //cout << "esta es la vida actual: " << vidaAct << endl;
 }
 
 void NPC::inicia()

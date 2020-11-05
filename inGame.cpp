@@ -149,17 +149,29 @@ bool inGame::colision(float x, float y, float npc_x, float npc_y, float width, f
     }
 }
 
+bool inGame::cerca(float x, float y, float npc_x, float npc_y, float width, float height, float dir, float moveSpeed) {
+
+    if ((x + width)+30 < npc_x || x > (npc_x + width)+30 || (y + height)+30 < npc_y || y > (npc_y + height)+30) {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+
 void inGame::dmg_npc(jugador jugador, NPC& guardia)
 {
-    if ((jugador.atacando() == true) && (colision(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, jugador.getDir(), jugador.getSpeed())==true)
+    if ((jugador.atacando() == true) && (cerca(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, jugador.getDir(), jugador.getSpeed())==true)
         && (guardia.ha_muerto()==false))
     {
         int xn = 2 + rand() % 2;
-        //cout << endl<< xn;
+        cout << "entre" << endl;
         //jugador.no_ataca();
         //sonido_espada_da();
         guardia.sufre_daño(xn, guardia);    
-        cout << "tiene :" << guardia.getVidaAct() << "de vida" << endl;
+        //cout << "tiene :" << guardia.getVidaAct() << "de vida" << endl;
 
     }
 }
@@ -337,7 +349,7 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
                 pinta_fondo();
                 pinta_jugador(jugador, sourceX, sourceY);
                 dmg_npc(jugador,guardia);
-                cout << guardia.getVidaAct() << endl;
+                //cout << guardia.getVidaAct() << endl;
                 
                 if (colision(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, dir, jugador.getSpeed()) && !(guardia.ha_muerto() ) ){
                     if (dir == 0) jugador.setmy(jugador.getSpeed());
