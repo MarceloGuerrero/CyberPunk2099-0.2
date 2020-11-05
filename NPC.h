@@ -15,13 +15,14 @@ private:
     int vidaAct;
     int def;
     bool muerto;
-    float moveSpeed=4;
+    float moveSpeed;
     float dir;
+    int direccion;
 public:
     float getDir() { return dir; };
-    void cmd(jugador &jugador);
+    void cmd(jugador &jugador, bool cerca);
     void update();
-    void draw();
+    void draw(int sx, int sy, int);
     NPC(int _vida);
     void inicia();
     void pinta2(float, float);

@@ -14,7 +14,7 @@ void NPC::sufre_daño(int dmg, NPC &guardia)
     if (!muerto)
     {
         vidaAct-= dmg;
-        cout << "vidita" << vidaAct << endl;
+        //cout << "vidita" << vidaAct << endl;
         if (vidaAct <= 0)
         {
             muerto = true;
@@ -32,39 +32,46 @@ NPC::~NPC()
 
 
 
-void NPC::cmd(jugador &jugador)
+void NPC::cmd(jugador &jugador, bool cerca)
 {
-    if ((jugador.getx() - x) > 0) _estados = RIGHT;
-    if ((jugador.getx() - x) < 0) _estados = LEFT;
-    if ((jugador.gety() - y) > 0) _estados = UP;
-    if ((jugador.gety() - y) < 0) _estados = DOWN;
+    if (!cerca) {
+        if ((jugador.getx() - x) > 0) direccion = RIGHT;
+        if ((jugador.getx() - x) < 0) direccion = LEFT;
+        if ((jugador.gety() - y) > 0) direccion = DOWN;
+        if ((jugador.gety() - y) < 0) direccion = UP;
+    }
+    else {
+        direccion = QUIETO;
+    }
+    if (direccion == QUIETO) {
+        direccion = ATACANDO;
+    }
+   
 }
 
 void NPC::update()
 {
     
-    switch (_estados) {
+    switch (direccion) {
     case RIGHT:
         x+= moveSpeed;
-        dir = 3;
-        //_estados = QUIETO;
+        
         break;
     case LEFT:
         x-= moveSpeed;
-        dir = 2;
-        //_estados = QUIETO;
+        
         break;
     case UP:
-        y+= moveSpeed;
-        dir = 1;
-        //_estados = QUIETO;
+        y-= moveSpeed;
+        
         break;
     case DOWN:
-        y-= moveSpeed;
-        dir = 0;
-        //_estados = QUIETO;
+        y+= moveSpeed;
+        
         break;
     case QUIETO:
+        y += 0;
+        x += 0;
         break;
     case ATACANDO:
         ataca = 1;
@@ -72,17 +79,29 @@ void NPC::update()
     }
 }
 
-void NPC::draw() {
-    int sourceX = 0;
-    sourceX += 224 / 8;
-    if (sourceX >= 224) sourceX = 0;
-    pinta2(sourceX,dir);
+void NPC::draw(int sx, int sy, int cont) {
+    
+    
+    if (direccion < 4) {
+        sy = direccion;
+        dir = sy;
+        sx += (al_get_bitmap_width(npc) / 8) * cont;
+    }
+    else {
+        cout << "dir "<<  dir <<endl;
+        sy = dir;
+    }
+    cout << "sx " << sx << endl;
+    //if()
+    
+    pinta2(sx,sy);
 }
 
 NPC::NPC(int _vida)
 {
     vida = _vida;
     vidaAct = vida;
+    moveSpeed = 2;
     //cout << "esta es la vida: " << vida << endl;
     //cout << "esta es la vida actual: " << vidaAct << endl;
 }
@@ -100,6 +119,6 @@ void NPC::inicia()
 
 void NPC::pinta2(float sx, float sy) {
     al_convert_mask_to_alpha(npc, al_map_rgb(0, 0, 0));
-    al_draw_bitmap_region(npc, sx, sy * 46, 30, 46, x, y, NULL);
+    al_draw_bitmap_region(npc, sx, sy * (al_get_bitmap_height(npc)/4), al_get_bitmap_width(npc) / 8, al_get_bitmap_height(npc) / 4, x, y, NULL);
 }
 

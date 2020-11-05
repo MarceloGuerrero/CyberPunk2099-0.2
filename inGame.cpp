@@ -151,7 +151,7 @@ bool inGame::colision(float x, float y, float npc_x, float npc_y, float width, f
 
 bool inGame::cerca(float x, float y, float npc_x, float npc_y, float width, float height, float dir, float moveSpeed) {
 
-    if ((x + width)+30 < npc_x || x > (npc_x + width)+30 || (y + height)+30 < npc_y || y > (npc_y + height)+30) {
+    if ((x + width)+15 < npc_x || x > (npc_x + width)+15 || (y + height)+15 < npc_y || y > (npc_y + height)+15) {
         return false;
     }
     else
@@ -167,7 +167,7 @@ void inGame::dmg_npc(jugador jugador, NPC& guardia)
         && (guardia.ha_muerto()==false))
     {
         int xn = 2 + rand() % 2;
-        cout << "entre" << endl;
+        //cout << "entre" << endl;
         //jugador.no_ataca();
         //sonido_espada_da();
         guardia.sufre_daño(xn, guardia);    
@@ -328,16 +328,17 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
 
     jugador.setSpeed(3);
     float sourceX = 32, sourceY = 0, dir = sourceY;
-
+    float sx = 0, sy = 0;
+    int cont = 0;
     while (!a) {
-        /*actualiza_juego(jugador);
+        actualiza_juego(jugador);
         al_clear_to_color(vacio);
         pinta_fondo();
        pinta_npc(guardia, 0, 0);
         al_clear_to_color(vacio);
         pinta_jugador(jugador, sourceX, dir);
         pinta_arma(arma1, sourceX, dir, jugador.getx(), jugador.gety());
-        */
+        
         bool done = false;
         while (!done)
         {
@@ -359,17 +360,17 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
                         //cout << guardia.getVida() << endl;
                 }
                 if (!(guardia.ha_muerto())) {
-                    if (!(cerca(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, dir, jugador.getSpeed()))) {
-
-                    }
-                    guardia.cmd(jugador);
+                    if (cont == 8) cont = 0;
+                    guardia.cmd(jugador, cerca(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, dir, jugador.getSpeed()));
                     guardia.update();
-                    pinta_npc(guardia, 0, 0);
-                    //guardia.draw();
+                    //pinta_npc(guardia, 0, 0);
+                    //cout << sy;
+                    guardia.draw(sx, sy, cont);
+                    cont++;
                     //dmg_npc(jugador, guardia);
                 }
                 else {
-                    cout << "aaalamierda" << endl;
+                    
                     guardia.~NPC();
                 }
                 pinta_arma(arma1, sourceX, sourceY, jugador.getx(), jugador.gety());
