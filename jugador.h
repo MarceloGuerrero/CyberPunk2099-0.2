@@ -2,7 +2,7 @@
 #include "allegro5/allegro.h"
 #include "allegro5/allegro_audio.h"
 #include "allegro5/allegro_acodec.h"
-#include "Armas.h"
+//#include "Armas.h"
 
 
 // Esta clase se encarga del manejo del jugador
@@ -26,7 +26,7 @@ private:
 public:
     void inicia();
     void pinta(int, int);
-    void teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events,
+    void teclado(/*Armas arma1,*/ ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events,
     bool done, float &sourceX, float &sourceY, float&dir, bool draw, bool active, int moveSpeed, ALLEGRO_TIMER* Timer, ALLEGRO_TIMER* frameTimer);
     float getx() { return x; };
     float gety() { return y; };

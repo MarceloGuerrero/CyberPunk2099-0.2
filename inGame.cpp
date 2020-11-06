@@ -135,6 +135,7 @@ void inGame::pinta_npc(NPC& guardia, float x, float y) {
 
 void inGame::pinta_arma(Armas arma1, float sourceX, float sourceY, float x, float y) {
     arma1.pinta(sourceX, sourceY, x, y);
+    //arma1.draw(sourcex, sourcey, x,y);
 }
 
 //acá vamos a declarar las colisiones
@@ -352,7 +353,7 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
     bool draw = true, active = false;
 
     jugador.setSpeed(3);
-    float sourceX = 32, sourceY = 0, dir = sourceY;
+    float sourceX = 32, sourceY = 0, dir = sourceY, dirA = sourceY;
     float sx = 0, sy = 0;
     int cont = 0;
     while (!a) {
@@ -376,9 +377,11 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
             if (draw) {
                 pinta_fondo();
                 if (!jugador.ha_muerto()) {
-                    jugador.teclado(arma1, keyState, event_queue, events, done, sourceX, sourceY, dir, draw, active, jugador.getSpeed(), timer, frameTimer);
+                    jugador.teclado(/*arma1,*/ keyState, event_queue, events, done, sourceX, sourceY, dir, draw, active, jugador.getSpeed(), timer, frameTimer);
                     pinta_jugador(jugador, sourceX, sourceY);
-                    pinta_arma(arma1, sourceX, dir, jugador.getx(), jugador.gety());
+                    arma1.cmd(jugador, sourceX, sourceY);
+                    arma1.update();
+                    pinta_arma(arma1, sourceX, sourceY, jugador.getx(), jugador.gety());
                 }
                 if (jugador.ha_muerto()) {
                     jugador.~jugador();

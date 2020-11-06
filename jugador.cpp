@@ -38,7 +38,7 @@ void jugador::pinta(int sx, int sy) {
         al_draw_bitmap_region(p1,animacion * 32, direccion * 48, x, y, 32, 48,ALLEGRO_FLIP_HORIZONTAL );*/
 }
 
-void jugador::teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events,
+void jugador::teclado(/*Armas arma1,*/ ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events,
     bool done, float& sourceX, float& sourceY, float&dir, bool draw, bool active, int moveSpeed, ALLEGRO_TIMER* timer, ALLEGRO_TIMER* frameTimer) {
 
     /// enum Direction { DOWN, LEFT, RIGHT, UP };
@@ -109,8 +109,8 @@ void jugador::teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVEN
 
 
             }
-            arma1.setx(this->getx());
-            arma1.sety(this->gety());
+            //arma1.setx(this->getx());
+            //arma1.sety(this->gety());
         }
     }
         //return;
