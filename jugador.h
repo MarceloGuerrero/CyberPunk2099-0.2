@@ -1,5 +1,7 @@
 #pragma once
 #include "allegro5/allegro.h"
+#include "allegro5/allegro_audio.h"
+#include "allegro5/allegro_acodec.h"
 #include "Armas.h"
 
 
@@ -7,6 +9,9 @@
 class jugador {
 private:
     ALLEGRO_BITMAP* p1;
+    ALLEGRO_SAMPLE* atak;
+    ALLEGRO_SAMPLE* camina;
+    ALLEGRO_SAMPLE* camina2;
     float x, y;
     /*int direccion;
     int animacion;*/

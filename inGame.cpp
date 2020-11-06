@@ -179,7 +179,7 @@ void inGame::dmg_npc(jugador& jugador, NPC& guardia)
 void inGame::dmg_jugador(jugador &jugador, NPC& guardia) {
 
     if ((guardia.atacando() == true) && (cerca(jugador.getx(), jugador.gety(), guardia.getx(), guardia.gety(), 30, 46, jugador.getDir(), jugador.getSpeed()) == true)
-        && (jugador.ha_muerto() == false))
+        && (jugador.ha_muerto() == false) && (guardia.ha_muerto() == false))
     {
         int xn = 2 + rand() % 2;
         //cout << "entre" << endl;
@@ -330,8 +330,17 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
    // ALLEGRO_BITMAP* p1 = jugador.getBitmap();
     //ALLEGRO_BITMAP* npc = guardia.getBitmap();
     ALLEGRO_COLOR rojito = al_map_rgb(255, 0, 0);
-
+    ALLEGRO_SAMPLE* song;
+    ALLEGRO_SAMPLE_INSTANCE* midi;
     ///this->carga_juego();
+    
+    song = al_load_sample("IMG/1.mid");
+
+    midi = al_create_sample_instance(song);
+    al_set_sample_instance_playmode(midi, ALLEGRO_PLAYMODE_LOOP);
+
+    al_attach_sample_instance_to_mixer(midi, al_get_default_mixer());
+    
 
     jugador.inicia();
     float x = jugador.getx();
@@ -353,7 +362,9 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
         pinta_npc(guardia, 0, 0);
         al_clear_to_color(vacio);
         pinta_jugador(jugador, sourceX, dir);
+        al_play_sample_instance(midi);
         //pinta_arma(arma1, sourceX, dir, jugador.getx(), jugador.gety());
+        
         
         bool done = false;
         while (!done)
@@ -396,7 +407,6 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
                     //dmg_npc(jugador, guardia);
                 }
                 else {
-                    
                     guardia.~NPC();
                 }
                 //pinta_arma(arma1, sourceX, sourceY, jugador.getx(), jugador.gety());

@@ -5,7 +5,10 @@ class Armas
 	private:
 		ALLEGRO_BITMAP* armas;
 		int x, y;
+		int direccion;
+		float dir;
 	public:
+		void draw(int sx, int sy, int x, int y);
 		void pinta(int sourseX, int sourceY, int x, int y);
 		void setx(int _x) { x = _x; };
 		void sety(int _y) { y = _y; };

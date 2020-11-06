@@ -5,6 +5,9 @@ using namespace std;
 void jugador::inicia()
 {
     p1 = al_load_bitmap("IMG/allen2.bmp");
+    atak = al_load_sample("IMG/2.wav");
+    camina = al_load_sample("IMG/camina/23.ogg");
+    camina2 = al_load_sample("IMG/camina/24.ogg");
     // inicializar vbles
     //direccion = 0;
     //animacion = 0;
@@ -51,10 +54,12 @@ void jugador::teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVEN
             if (al_key_down(&keyState, ALLEGRO_KEY_S)) {
                 this->y += moveSpeed;
                 dir = 0;
+                al_play_sample(camina, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
             }
             else if (al_key_down(&keyState, ALLEGRO_KEY_W)) {
                 this->y -= moveSpeed;
                 dir = 3;
+                al_play_sample(camina2, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
             }
             else if (al_key_down(&keyState, ALLEGRO_KEY_SPACE)) {
                 moveSpeed = 5;
@@ -62,11 +67,12 @@ void jugador::teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVEN
             else if (al_key_down(&keyState, ALLEGRO_KEY_D)) {
                 this->x += moveSpeed;
                 dir = 2;
+                al_play_sample(camina, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
             }
             else if (al_key_down(&keyState, ALLEGRO_KEY_A)) {
                 this->x -= moveSpeed;
                 dir = 1;
-
+                al_play_sample(camina2, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
             }
             else if (al_key_down(&keyState, ALLEGRO_KEY_R) && ataca == 0) {
                 ataca = 1;
@@ -74,6 +80,7 @@ void jugador::teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVEN
             }
             else if (al_key_down(&keyState, ALLEGRO_KEY_R) && ataca == 1) {
                 ataca = 2;
+                al_play_sample(atak, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
                 //cout << ataca;
             }
             else if (ataca == 2) ataca = 0;
@@ -84,18 +91,24 @@ void jugador::teclado(Armas arma1, ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVEN
             else {
                 active = false;
             }
-            if (events.timer.source == frameTimer) {
+            if (events.timer.source == frameTimer && ataca == 0) {
                 if (active)sourceX += al_get_bitmap_width(this->getBitmap()) / 3;
                 //sourceX += al_get_bitmap_width(arma1.getBitmap()) / 6;
                 else sourceX = 32;
                 if (sourceX >= al_get_bitmap_width(this->getBitmap())) sourceX = 0;
-
                 sourceY = dir;
+                /*if (sourceX = 0 && atacando) {
+                    
+                }*/
             }
         draw = true;
         if (draw) {
             this->setx(x);
             this->sety(y);
+            if (ataca == 2 ) {
+
+
+            }
             arma1.setx(this->getx());
             arma1.sety(this->gety());
         }
