@@ -23,6 +23,7 @@ void Armas::inicia(int _x, int _y)
     //animacion = 0;
     x = _x;
     y = _y;
+    dmg = 3;
 }
 
 Armas::~Armas() {

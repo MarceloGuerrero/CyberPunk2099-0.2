@@ -11,6 +11,7 @@ class Armas:private jugador
 		int x, y;
 		int direccion;
 		float dirA;
+		int dmg;
 		ESTADOS_ARMAS _estados;
 	public:
 		void cmd(jugador jugador, int sx, int sy);

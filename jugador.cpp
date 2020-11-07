@@ -105,12 +105,12 @@ void jugador::teclado(/*Armas arma1,*/ ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_
         if (draw) {
             this->setx(x);
             this->sety(y);
-            if (ataca == 2 ) {
+            /*if (ataca == 2 ) {
 
 
-            }
-            //arma1.setx(this->getx());
-            //arma1.sety(this->gety());
+            }*/
+            /*arma1.setx(this->getx());
+            arma1.sety(this->gety());*/
         }
     }
         //return;
