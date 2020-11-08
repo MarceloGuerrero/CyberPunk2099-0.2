@@ -19,6 +19,16 @@ class inGame {
         ALLEGRO_BITMAP* menu5 = al_load_bitmap("IMG/menu5.bmp");
         ALLEGRO_BITMAP* menu6 = al_load_bitmap("IMG/menu6.bmp");
         ALLEGRO_BITMAP* cursor = al_load_bitmap("IMG/cursor.bmp");
+        ALLEGRO_BITMAP* sonido1 = al_load_bitmap("IMG/sonido1.bmp");
+        ALLEGRO_BITMAP* sonido2 = al_load_bitmap("IMG/sonido2.bmp");
+        ALLEGRO_BITMAP* sonido3 = al_load_bitmap("IMG/sonido3.bmp");
+        ALLEGRO_BITMAP* sonnido4 = al_load_bitmap("IMG/sonido4.bmp");
+        ALLEGRO_BITMAP* opciones1 = al_load_bitmap("IMG/opciones1.bmp");
+        ALLEGRO_BITMAP* opciones2 = al_load_bitmap("IMG/opciones2.bmp");
+        ALLEGRO_BITMAP* opciones3 = al_load_bitmap("IMG/opciones3.bmp");
+        ALLEGRO_BITMAP* opciones4 = al_load_bitmap("IMG/opciones4.bmp");
+        ALLEGRO_BITMAP* controles1 = al_load_bitmap("IMG/controles1.bmp");
+        ALLEGRO_BITMAP* controles2 = al_load_bitmap("IMG/controles.bmp");
         ALLEGRO_COLOR vacio = al_map_rgb(0, 0, 0);
     public:
         void GAME();

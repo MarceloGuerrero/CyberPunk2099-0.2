@@ -295,10 +295,23 @@ void inGame::menu_principal(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT even
         al_clear_to_color(al_map_rgb(0, 0, 0));
         al_draw_bitmap(menu5, 0, 0, NULL);
         al_flip_display();
-        if (events.mouse.button & 1) {
 
-           //a = true;   //funcion jugar a desarrolar
-            done = true;
+        if (events.mouse.button & 1) {
+            while(done==false) {
+
+                al_clear_to_color(al_map_rgb(0, 0, 0));
+                al_draw_bitmap(opciones1, 0, 0, NULL);
+                al_flip_display();
+                if (x >200 && x < 650 &&
+                    y>250 && y < 300)
+                {
+                    al_clear_to_color(al_map_rgb(0, 0, 0));
+                    al_draw_bitmap(opciones2, 0, 0, NULL);
+                    al_flip_display();
+                }
+
+
+            }
         }
     }
 
