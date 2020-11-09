@@ -247,6 +247,7 @@ void inGame::GAME(){
         }
         //comienza el jueguin
         menu_principal(event_queue, events, done, x, y);
+       
     }
     
     juego_inicia(keyState, event_queue, events, timer, frameTimer);
@@ -297,21 +298,21 @@ void inGame::menu_principal(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT even
         al_flip_display();
 
         if (events.mouse.button & 1) {
+
+            // menu de opciones a terminar de desarrolar
+
+
             while(done==false) {
 
-                al_clear_to_color(al_map_rgb(0, 0, 0));
-                al_draw_bitmap(opciones1, 0, 0, NULL);
-                al_flip_display();
-                if (x >200 && x < 650 &&
-                    y>250 && y < 300)
                 {
-                    al_clear_to_color(al_map_rgb(0, 0, 0));
-                    al_draw_bitmap(opciones2, 0, 0, NULL);
-                    al_flip_display();
+                    menu_opciones(event_queue, events, done, x, y);
+                   
                 }
 
 
             }
+
+           
         }
     }
 
@@ -433,4 +434,51 @@ void inGame::juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* 
 }
 
 inGame::~inGame() {
+}
+
+void inGame::menu_opciones(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, bool& done, float x, float y) {
+
+    if (x > 320 && x < 860 &&
+        y>290 && y < 350) {
+        al_clear_to_color(vacio);
+        al_draw_bitmap(opciones2, 0, 0, NULL);
+        al_flip_display();
+       /* if (events.mouse.button & 1) {
+
+            
+
+        }*/
+    }
+
+    else if (x > 320 && x < 750 &&
+        y>400 && y < 460) {
+        al_clear_to_color(al_map_rgb(0, 0, 0));
+        al_draw_bitmap(opciones3, 0, 0, NULL);
+        al_flip_display();/*
+        if (events.mouse.button & 1) {
+
+
+        }*/
+    }
+
+    else if (x > 850 && x < 1250 &&
+            y>580 && y < 600) {
+            al_clear_to_color(al_map_rgb(0, 0, 0));
+            al_draw_bitmap(opciones4, 0, 0, NULL);
+            al_flip_display();/*
+            if (events.mouse.button & 1) {
+
+                
+            }*/
+
+
+        }
+
+   else
+        { 
+        al_clear_to_color(al_map_rgb(0, 0, 0));
+        al_draw_bitmap(opciones1, 0, 0, NULL);
+        al_flip_display();
+
+    }
 }

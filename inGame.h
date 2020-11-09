@@ -46,6 +46,7 @@ class inGame {
         void actualiza_juego(jugador jugador);
         void juego_inicia(ALLEGRO_KEYBOARD_STATE keyState, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, ALLEGRO_TIMER* timer, ALLEGRO_TIMER* frameTimer);
         void menu_principal(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, bool &done, float x, float y);
+        void menu_opciones(ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_EVENT events, bool& done, float x, float y);
         bool colision(float x, float y, float npc_x, float npc_y, float width, float height, float dir, float moveSpeed);
         bool cerca(float x, float y, float npc_x, float npc_y, float width, float height, float dir, float moveSpeed);
         void dmg_npc(jugador& jugador, NPC& guardia);
